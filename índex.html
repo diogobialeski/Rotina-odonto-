@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano · Odontologia</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #090b0f;
+  --s1:      #0f1218;
+  --s2:      #141720;
+  --s3:      #1a1e28;
+  --border:  #1f2330;
+  --border2: #272c3a;
+  --white:   #e8eaf0;
+  --dim:     #6b7280;
+  --muted:   #3a3f4e;
+  --blue:    #4a90d9;
+  --green:   #3d9e6e;
+  --orange:  #c97d3a;
+  --purple:  #7c5cbf;
+  --red:     #b05555;
+  --teal:    #3a8a8a;
+  --glow-b:  rgba(74,144,217,.12);
+  --glow-g:  rgba(61,158,110,.12);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: .6;
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 52px 28px 100px;
+}
+
+/* ── HEADER ─────────────────────────────── */
+.header {
+  margin-bottom: 56px;
+}
+.header-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -.04em;
+  line-height: 1.1;
+  color: var(--white);
+}
+.header h1 span { color: var(--dim); font-weight: 400; }
+.header-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--dim);
+  margin-top: 8px;
+}
+.tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .06em;
+  padding: 3px 9px;
+  border-radius: 3px;
+  background: var(--s2);
+  border: 1px solid var(--border2);
+  color: var(--dim);
+}
+.tag.hi { border-color: var(--blue); color: var(--blue); background: rgba(74,144,217,.06); }
+
+/* ── SECTION ─────────────────────────────── */
+.section { margin-bottom: 52px; }
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.sec-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.sec-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── PROGRESS RING ───────────────────────── */
+.progress-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 22px;
+  background: var(--s2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+.ring-wrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+.ring-wrap svg { transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: var(--border2); stroke-width: 3; }
+.ring-fg {
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 163;
+  stroke-dashoffset: 163;
+  transition: stroke-dashoffset .6s cubic-bezier(.4,0,.2,1);
+  filter: drop-shadow(0 0 6px rgba(61,158,110,.5));
+}
+.ring-pct {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--white);
+}
+.progress-info { flex: 1; }
+.progress-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.progress-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--dim);
+  margin-bottom: 10px;
+}
+.progress-bar-wrap {
+  background: var(--border2);
+  border-radius: 2px;
+  height: 3px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--green));
+  border-radius: 2px;
+  width: 0%;
+  transition: width .6s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 0 8px rgba(74,144,217,.4);
+}
+.progress-counts {
+  display: flex;
+  gap: 14px;
+  margin-top: 6px;
+}
+.p-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--dim);
+}
+.p-count span { color: var(--white); font-weight: 500; }
+
+/* ── CHECKLIST ───────────────────────────── */
+.checklist-groups { display: flex; flex-direction: column; gap: 6px; }
+.group-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 14px 0 6px;
+}
+.check-items { display: flex; flex-direction: column; gap: 3px; }
+
+.ci {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .15s, border-color .15s, transform .1s;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+.ci::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: transparent;
+  transition: background .2s;
+  border-radius: 2px 0 0 2px;
+}
+.ci:hover { background: var(--s2); border-color: var(--border2); }
+.ci:active { transform: scale(.995); }
+.ci.done { background: var(--s1); border-color: var(--border); }
+.ci.done::before { background: var(--green); }
+.ci.done .ci-text { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--muted); }
+
+/* minimal checkbox — just a line */
+.cb {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--border2);
+  border-radius: 3px;
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color .2s, background .2s;
+}
+.ci:hover .cb { border-color: var(--dim); }
+.ci.done .cb {
+  background: var(--green);
+  border-color: var(--green);
+  box-shadow: 0 0 8px rgba(61,158,110,.35);
+}
+.ci.done .cb::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 3px;
+  width: 6px; height: 3.5px;
+  border-left: 1.5px solid #fff;
+  border-bottom: 1.5px solid #fff;
+  transform: rotate(-45deg);
+}
+.ci-text {
+  font-size: 12.5px;
+  color: var(--white);
+  transition: color .2s;
+  flex: 1;
+}
+.ci-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--border2);
+  color: var(--dim);
+  transition: opacity .2s;
+}
+.ci.done .ci-tag { opacity: .3; }
+
+/* add item */
+.add-wrap {
+  margin-top: 8px;
+  display: flex;
+  gap: 6px;
+}
+.add-input {
+  flex: 1;
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-family: 'Syne', sans-serif;
+  font-size: 12.5px;
+  color: var(--white);
+  outline: none;
+  transition: border-color .2s;
+}
+.add-input::placeholder { color: var(--muted); }
+.add-input:focus { border-color: var(--border2); }
+.add-btn {
+  background: var(--s3);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--dim);
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+  letter-spacing: .06em;
+}
+.add-btn:hover { background: var(--border2); color: var(--white); border-color: var(--dim); }
+
+/* ── TIMELINE ─────────────────────────────── */
+.timeline { display: flex; flex-direction: column; }
+.ti {
+  display: grid;
+  grid-template-columns: 48px 1px 1fr;
+  gap: 0 18px;
+  min-height: 56px;
+}
+.ti-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  color: var(--muted);
+  padding-top: 18px;
+  text-align: right;
+}
+.ti-spine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.ti-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--border2);
+  margin-top: 20px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  transition: box-shadow .3s;
+}
+.ti-dot.key {
+  width: 8px; height: 8px;
+  margin-top: 19px;
+}
+.ti-line {
+  width: 1px;
+  flex: 1;
+  background: var(--border);
+  margin-top: 3px;
+}
+.ti:last-child .ti-line { display: none; }
+.ti-body { padding: 12px 0 16px; }
+.ti-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+.ti-label.dim { color: var(--dim); font-weight: 400; }
+.ti-note { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); }
+
+/* colored dots */
+[data-accent="blue"]   .ti-dot { background: var(--blue); box-shadow: 0 0 10px rgba(74,144,217,.5); }
+[data-accent="green"]  .ti-dot { background: var(--green); box-shadow: 0 0 10px rgba(61,158,110,.5); }
+[data-accent="orange"] .ti-dot { background: var(--orange); box-shadow: 0 0 10px rgba(201,125,58,.5); }
+[data-accent="purple"] .ti-dot { background: var(--purple); box-shadow: 0 0 10px rgba(124,92,191,.5); }
+[data-accent="blue"]   .ti-label { color: var(--blue); }
+[data-accent="green"]  .ti-label { color: var(--green); }
+[data-accent="orange"] .ti-label { color: var(--orange); }
+[data-accent="purple"] .ti-label { color: var(--purple); }
+
+/* ── WEEK GRID ───────────────────────────── */
+.week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.wday {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 7px;
+  text-align: center;
+  transition: border-color .2s;
+}
+.wday:hover { border-color: var(--border2); }
+.wday-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: .1em;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+.wday-div { height: 1px; background: var(--border); margin: 0 0 7px; }
+.wday-sub {
+  font-size: 9.5px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* ── PRIORITIES ──────────────────────────── */
+.plist { display: flex; flex-direction: column; gap: 4px; }
+.pitem {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  align-items: center;
+  gap: 0;
+  padding: 10px 14px;
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color .15s;
+}
+.pitem:hover { border-color: var(--border2); }
+.pnum {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+}
+.pname { font-size: 13px; font-weight: 500; }
+.pdesc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  color: var(--dim);
+  margin-top: 1px;
+}
+
+/* ── LUNCH ───────────────────────────────── */
+.lunch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.lcard {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+.lcard-title {
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.lcard-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.lsteps { display: flex; flex-direction: column; gap: 7px; }
+.lstep { display: flex; gap: 10px; }
+.lstep-t {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  white-space: nowrap;
+  padding-top: 1px;
+  width: 34px;
+  flex-shrink: 0;
+}
+.lstep-d { font-size: 11.5px; color: var(--dim); }
+
+/* ── RULES ───────────────────────────────── */
+.rules { display: flex; flex-direction: column; gap: 1px; }
+.rule {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 11px 14px;
+  border-left: 1px solid var(--border);
+  transition: border-color .2s;
+}
+.rule:hover { border-color: var(--blue); }
+.rn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  width: 12px;
+  flex-shrink: 0;
+}
+.rt { font-size: 12.5px; color: var(--dim); }
+.rt strong { color: var(--white); font-weight: 500; }
+
+/* ── RITUAL ──────────────────────────────── */
+.rituals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+.rcard {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 13px;
+  transition: border-color .15s;
+}
+.rcard:hover { border-color: var(--border2); }
+.rcard-icon { font-size: 16px; margin-bottom: 7px; }
+.rcard-t { font-size: 11.5px; font-weight: 500; margin-bottom: 3px; }
+.rcard-d { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--muted); }
+
+/* ── FOOTER ──────────────────────────────── */
+.footer {
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+}
+.footer-t { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); }
+
+/* ── ANIMATIONS ──────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.section { animation: fadeUp .35s ease both; }
+.section:nth-child(2) { animation-delay: .04s; }
+.section:nth-child(3) { animation-delay: .08s; }
+.section:nth-child(4) { animation-delay: .12s; }
+.section:nth-child(5) { animation-delay: .16s; }
+.section:nth-child(6) { animation-delay: .20s; }
+.section:nth-child(7) { animation-delay: .24s; }
+.section:nth-child(8) { animation-delay: .28s; }
+
+@keyframes strikethrough {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* confetti burst */
+.burst {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999;
+}
+.burst-dot {
+  position: absolute;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  animation: burst-fly .5s ease-out forwards;
+}
+@keyframes burst-fly {
+  to { transform: translate(var(--tx), var(--ty)); opacity: 0; }
+}
+
+@media (max-width: 560px) {
+  .week { grid-template-columns: repeat(4, 1fr); }
+  .rituals { grid-template-columns: 1fr 1fr; }
+  .lunch-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-eyebrow">Plano de Estudos · 2026</div>
+  <h1>Odontologia <span>/ 5° Período</span></h1>
+  <div class="header-sub">Noturno · Seg–Sex 19h10–22h50 · Sáb manhã</div>
+  <div class="tags">
+    <span class="tag hi">Pai</span>
+    <span class="tag hi">Profissional</span>
+    <span class="tag hi">Estudante</span>
+    <span class="tag">Foco no almoço</span>
+    <span class="tag">Consistência &gt; Intensidade</span>
+  </div>
+</div>
+
+<!-- CHECKLIST -->
+<div class="section">
+  <div class="sec-head"><span class="sec-label">Checklist Diário</span><div class="sec-line"></div></div>
+
+  <!-- progress -->
+  <div class="progress-header">
+    <div class="ring-wrap">
+      <svg width="64" height="64" viewBox="0 0 64 64">
+        <circle class="ring-bg" cx="32" cy="32" r="26"/>
+        <circle class="ring-fg" id="ring" cx="32" cy="32" r="26"/>
+      </svg>
+      <div class="ring-pct" id="pct">0%</div>
+    </div>
+    <div class="progress-info">
+      <div class="progress-title" id="prog-title">Hoje ainda não começou</div>
+      <div class="progress-sub" id="prog-sub">Complete as tarefas do dia</div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="prog-bar"></div></div>
+      <div class="progress-counts">
+        <div class="p-count"><span id="cnt-done">0</span> concluídas</div>
+        <div class="p-count"><span id="cnt-left">7</span> restantes</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="checklist-groups">
+    <!-- manhã -->
+    <div class="group-label">— Manhã</div>
+    <div class="check-items" id="list-manha">
+      <div class="ci" onclick="check(this)">
+        <div class="cb"></div>
+        <span class="ci-text">Acordei às 06h30</span>
+        <span class="ci-tag">06h30</span>
+      </div>
+      <div class="ci" onclick="check(this)">
+        <div class="cb"></div>
+        <span class="ci-text">Roupa e mochila já estavam prontas</span>
+        <span class="ci-tag">ritual</span>
+      </div>
+    </div>
+
+    <!-- almoço -->
+    <div class="group-label">— Almoço</div>
+    <div class="check-items" id="list-almoco">
+      <div class="ci" onclick="check(this)">
+        <div class="cb"></div>
+        <span class="ci-text">Estudei ou fui à academia</span>
+        <span class="ci-tag">13h00</span>
+      </div>
+      <div class="ci" onclick="check(this)">
+        <div class="cb"></div>
+        <span class="ci-text">Fiz flashcards no Anki</span>
+        <span class="ci-tag">anki</span>
+      </div>
+    </div>
+
+    <!-- noite -->
+    <div class="group-label">— Noite</div>
+    <div class="check-items" id="list-noite">
+      <div class="ci" onclick="check(this)">
+        <div class="cb"></div>
+        <span class="ci-text">Fiquei com o filho de 18h às 19h</span>
+        <span class="ci-tag">família</span>
+      </div>
+      <div class="ci" onclick="check(this)">
+        <div class="cb"></div>
+        <span class="ci-text">Fui à aula</span>
+        <span class="ci-tag">19h10</span>
+      </div>
+      <div class="ci" onclick="check(this)">
+        <div class="cb"></div>
+        <span class="ci-text">Preparei roupa, mochila e alarme</span>
+        <span class="ci-tag">ritual</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- add item -->
+  <div class="add-wrap">
+    <input class="add-input" id="new-item" placeholder="Adicionar tarefa..." maxlength="80"
+      onkeydown="if(event.key==='Enter') addItem()">
+    <button class="add-btn" onclick="addItem()">+ add</button>
+  </div>
+</div>
+
+<!-- SEMANA -->
+<div class="section">
+  <div class="sec-head"><span class="sec-label">Semana de Estudos</span><div class="sec-line"></div></div>
+  <div class="week">
+    <div class="wday">
+      <div class="wday-name">SEG</div><div class="wday-div"></div>
+      <div class="wday-sub" style="color:var(--orange)">Cirurgia B.M.F.</div>
+    </div>
+    <div class="wday">
+      <div class="wday-name">TER</div><div class="wday-div"></div>
+      <div class="wday-sub" style="color:var(--purple)">Endodontia II</div>
+    </div>
+    <div class="wday">
+      <div class="wday-name">QUA</div><div class="wday-div"></div>
+      <div class="wday-sub" style="color:var(--blue)">Reab. Protéticas II</div>
+    </div>
+    <div class="wday">
+      <div class="wday-name">QUI</div><div class="wday-div"></div>
+      <div class="wday-sub" style="color:var(--green)">Periodontia II</div>
+    </div>
+    <div class="wday">
+      <div class="wday-name">SEX</div><div class="wday-div"></div>
+      <div class="wday-sub" style="color:var(--red)">Reab. Diretas + Dentística</div>
+    </div>
+    <div class="wday">
+      <div class="wday-name">SÁB</div><div class="wday-div"></div>
+      <div class="wday-sub" style="color:var(--dim)">Aula manhã · família tarde</div>
+    </div>
+    <div class="wday">
+      <div class="wday-name">DOM</div><div class="wday-div"></div>
+      <div class="wday-sub" style="color:var(--green)">Família 100%</div>
+    </div>
+  </div>
+</div>
+
+<!-- PRIORIDADES -->
+<div class="section">
+  <div class="sec-head"><span class="sec-label">Prioridade de Estudo</span><div class="sec-line"></div></div>
+  <div class="plist">
+    <div class="pitem">
+      <div class="pnum">01</div>
+      <div><div class="pname" style="color:var(--red)">Dentística</div><div class="pdesc">Lacuna de atendimento — base clínica urgente</div></div>
+    </div>
+    <div class="pitem">
+      <div class="pnum">02</div>
+      <div><div class="pname" style="color:var(--purple)">Endodontia II</div><div class="pdesc">Sequência do semestre anterior</div></div>
+    </div>
+    <div class="pitem">
+      <div class="pnum">03</div>
+      <div><div class="pname" style="color:var(--blue)">Reab. Diretas II</div><div class="pdesc">Integra Dentística na prática</div></div>
+    </div>
+    <div class="pitem">
+      <div class="pnum">04</div>
+      <div><div class="pname" style="color:var(--orange)">Cirurgia B.M.F.</div><div class="pdesc">Acompanhar o semestre</div></div>
+    </div>
+    <div class="pitem">
+      <div class="pnum">05</div>
+      <div><div class="pname" style="color:var(--green)">Periodontia II</div><div class="pdesc">Acompanhar o semestre</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ROTINA DIÁRIA -->
+<div class="section">
+  <div class="sec-head"><span class="sec-label">Rotina Diária</span><div class="sec-line"></div></div>
+  <div class="timeline">
+    <div class="ti" data-accent="orange">
+      <div class="ti-time">06h30</div>
+      <div class="ti-spine"><div class="ti-dot key"></div><div class="ti-line"></div></div>
+      <div class="ti-body"><div class="ti-label">Acordar</div><div class="ti-note">Alarme único — roupa separada na noite anterior</div></div>
+    </div>
+    <div class="ti">
+      <div class="ti-time">07h30</div>
+      <div class="ti-spine"><div class="ti-dot"></div><div class="ti-line"></div></div>
+      <div class="ti-body"><div class="ti-label dim">Saída</div><div class="ti-note">Café rápido + mochila pronta na porta</div></div>
+    </div>
+    <div class="ti">
+      <div class="ti-time">08h00</div>
+      <div class="ti-spine"><div class="ti-dot"></div><div class="ti-line"></div></div>
+      <div class="ti-body"><div class="ti-label dim">Trabalho</div><div class="ti-note">Foco no serviço · pausas → Anki</div></div>
+    </div>
+    <div class="ti" data-accent="blue">
+      <div class="ti-time">13h00</div>
+      <div class="ti-spine"><div class="ti-dot key"></div><div class="ti-line"></div></div>
+      <div class="ti-body"><div class="ti-label">Almoço — Janela de Ouro ★</div><div class="ti-note">3× estudo · 2× academia · sempre Anki nas pausas</div></div>
+    </div>
+    <div class="ti">
+      <div class="ti-time">15h00</div>
+      <div class="ti-spine"><div class="ti-dot"></div><div class="ti-line"></div></div>
+      <div class="ti-body"><div class="ti-label dim">Trabalho (tarde)</div><div class="ti-note">Mantém o foco</div></div>
+    </div>
+    <div class="ti" data-accent="green">
+      <div class="ti-time">18h00</div>
+      <div class="ti-spine"><div class="ti-dot key"></div><div class="ti-line"></div></div>
+      <div class="ti-body"><div class="ti-label">Família + Filho</div><div class="ti-note">Busca o filho — presença total até a aula</div></div>
+    </div>
+    <div class="ti" data-accent="purple">
+      <div class="ti-time">19h10</div>
+      <div class="ti-spine"><div class="ti-dot key"></div><div class="ti-line"></div></div>
+      <div class="ti-body"><div class="ti-label">Aula — Odontologia</div><div class="ti-note">Cirurgia · Endodontia · Protética · Periodontia</div></div>
+    </div>
+    <div class="ti">
+      <div class="ti-time">22h50</div>
+      <div class="ti-spine"><div class="ti-dot"></div><div class="ti-line"></div></div>
+      <div class="ti-body"><div class="ti-label dim">Fim da aula</div><div class="ti-note">Filho dormindo · 5 min preparando o dia seguinte</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ALMOÇO -->
+<div class="section">
+  <div class="sec-head"><span class="sec-label">Estratégia do Almoço</span><div class="sec-line"></div></div>
+  <div class="lunch-grid">
+    <div class="lcard" style="border-color:rgba(74,144,217,.2)">
+      <div class="lcard-title" style="color:var(--blue)">
+        <div class="lcard-dot" style="background:var(--blue)"></div>
+        Dias de Estudo · 3×/semana
+      </div>
+      <div class="lsteps">
+        <div class="lstep"><span class="lstep-t">13h00</span><span class="lstep-d">Almoço rápido (15 min)</span></div>
+        <div class="lstep"><span class="lstep-t">13h15</span><span class="lstep-d">Estudo focado — 25 min</span></div>
+        <div class="lstep"><span class="lstep-t">13h40</span><span class="lstep-d">Pausa 5 min</span></div>
+        <div class="lstep"><span class="lstep-t">13h45</span><span class="lstep-d">Revisão / Anki (30 min)</span></div>
+      </div>
+    </div>
+    <div class="lcard" style="border-color:rgba(61,158,110,.2)">
+      <div class="lcard-title" style="color:var(--green)">
+        <div class="lcard-dot" style="background:var(--green)"></div>
+        Dias de Academia · 2×/semana
+      </div>
+      <div class="lsteps">
+        <div class="lstep"><span class="lstep-t">13h00</span><span class="lstep-d">Academia (45 min)</span></div>
+        <div class="lstep"><span class="lstep-t">13h45</span><span class="lstep-d">Banho + almoço rápido</span></div>
+        <div class="lstep"><span class="lstep-t">14h15</span><span class="lstep-d">Anki 10 min no celular</span></div>
+        <div class="lstep"><span class="lstep-t">14h30</span><span class="lstep-d">Volta ao trabalho</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RITUAL -->
+<div class="section">
+  <div class="sec-head"><span class="sec-label">Ritual da Noite Anterior · 5 min</span><div class="sec-line"></div></div>
+  <div class="rituals">
+    <div class="rcard"><div class="rcard-icon">👔</div><div class="rcard-t">Roupa separada</div><div class="rcard-d">Economiza 10 min pela manhã</div></div>
+    <div class="rcard"><div class="rcard-icon">🎒</div><div class="rcard-t">Mochila na porta</div><div class="rcard-d">Material de aula completo</div></div>
+    <div class="rcard"><div class="rcard-icon">⏰</div><div class="rcard-t">Alarme 06h30</div><div class="rcard-d">Um só. Sem snooze.</div></div>
+    <div class="rcard"><div class="rcard-icon">📖</div><div class="rcard-t">30s de revisão</div><div class="rcard-d">Releia o tópico de amanhã</div></div>
+    <div class="rcard"><div class="rcard-icon">💬</div><div class="rcard-t">Alinha com a esposa</div><div class="rcard-d">Horário de buscar o filho</div></div>
+    <div class="rcard"><div class="rcard-icon">😴</div><div class="rcard-t">Desliga os estudos</div><div class="rcard-d">Mente descansada aprende mais</div></div>
+  </div>
+</div>
+
+<!-- REGRAS -->
+<div class="section">
+  <div class="sec-head"><span class="sec-label">Regras de Ouro</span><div class="sec-line"></div></div>
+  <div class="rules">
+    <div class="rule"><span class="rn">01</span><span class="rt"><strong>O almoço é seu único tempo de estudo. Proteja-o.</strong></span></div>
+    <div class="rule"><span class="rn">02</span><span class="rt">Uma matéria por dia — <strong>foco gera profundidade.</strong></span></div>
+    <div class="rule"><span class="rn">03</span><span class="rt">Não existe estudo perfeito. Existe <strong>estudo consistente.</strong></span></div>
+    <div class="rule"><span class="rn">04</span><span class="rt">Família não atrapalha os estudos — <strong>ela é o motivo deles.</strong></span></div>
+    <div class="rule"><span class="rn">05</span><span class="rt">Cansou? <strong>10 minutos de Anki ainda valem a pena.</strong></span></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span class="footer-t">🦷 Odontologia · 5° Período · 2026</span>
+  <span class="footer-t">Pai · Profissional · Estudante</span>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// ── CHECKLIST LOGIC ──────────────────────────────────────
+const messages = [
+  ["Hoje ainda não começou", "Complete as tarefas do dia"],
+  ["Começando bem!", "Continue assim..."],
+  ["Bom ritmo!", "Quase na metade"],
+  ["Metade do caminho!", "Você está mandando bem"],
+  ["Ótimo progresso!", "Já passou da metade"],
+  ["Quase lá!", "Só mais algumas tarefas"],
+  ["Excelente!", "Falta só uma tarefa"],
+  ["DIA COMPLETO! 🎉", "Você fez tudo hoje — orgulho!"],
+];
+
+function getAllItems() {
+  return document.querySelectorAll('.ci');
+}
+
+function updateProgress() {
+  const all = getAllItems();
+  const done = [...all].filter(el => el.classList.contains('done')).length;
+  const total = all.length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+
+  // ring
+  const circ = 163;
+  document.getElementById('ring').style.strokeDashoffset = circ - (circ * pct / 100);
+  document.getElementById('pct').textContent = pct + '%';
+
+  // bar
+  document.getElementById('prog-bar').style.width = pct + '%';
+
+  // counts
+  document.getElementById('cnt-done').textContent = done;
+  document.getElementById('cnt-left').textContent = total - done;
+
+  // message
+  const idx = Math.min(done, messages.length - 1);
+  document.getElementById('prog-title').textContent = messages[idx][0];
+  document.getElementById('prog-sub').textContent = messages[idx][1];
+
+  // ring color
+  const ring = document.getElementById('ring');
+  if (pct === 100) ring.style.stroke = '#d4a843';
+  else if (pct >= 70) ring.style.stroke = '#3d9e6e';
+  else ring.style.stroke = '#4a90d9';
+}
+
+function burst(el) {
+  const rect = el.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  const colors = ['#4a90d9','#3d9e6e','#9b72cf','#e8944a','#d4a843'];
+  const wrap = document.createElement('div');
+  wrap.className = 'burst';
+  document.body.appendChild(wrap);
+  for (let i = 0; i < 8; i++) {
+    const d = document.createElement('div');
+    d.className = 'burst-dot';
+    const angle = (i / 8) * Math.PI * 2;
+    const dist = 20 + Math.random() * 20;
+    d.style.cssText = `
+      left: ${cx}px; top: ${cy}px;
+      background: ${colors[i % colors.length]};
+      --tx: ${Math.cos(angle) * dist}px;
+      --ty: ${Math.sin(angle) * dist}px;
+    `;
+    wrap.appendChild(d);
+  }
+  setTimeout(() => wrap.remove(), 600);
+}
+
+function check(el) {
+  const wasDone = el.classList.contains('done');
+  el.classList.toggle('done');
+  if (!wasDone) burst(el);
+  updateProgress();
+}
+
+function addItem() {
+  const input = document.getElementById('new-item');
+  const val = input.value.trim();
+  if (!val) return;
+
+  // find or create custom group
+  let group = document.getElementById('custom-group');
+  if (!group) {
+    const groupLabel = document.createElement('div');
+    groupLabel.className = 'group-label';
+    groupLabel.textContent = '— Personalizado';
+    const container = document.querySelector('.checklist-groups');
+    group = document.createElement('div');
+    group.className = 'check-items';
+    group.id = 'custom-group';
+    container.appendChild(groupLabel);
+    container.appendChild(group);
+  }
+
+  const item = document.createElement('div');
+  item.className = 'ci';
+  item.style.animation = 'fadeUp .25s ease both';
+  item.onclick = function() { check(this); };
+  item.innerHTML = `
+    <div class="cb"></div>
+    <span class="ci-text">${val}</span>
+    <span class="ci-tag" onclick="removeItem(event, this.parentElement)" style="cursor:pointer;color:var(--red);border-color:var(--red)20">✕</span>
+  `;
+  group.appendChild(item);
+  input.value = '';
+  updateProgress();
+}
+
+function removeItem(e, el) {
+  e.stopPropagation();
+  el.style.transition = 'opacity .2s, transform .2s';
+  el.style.opacity = '0';
+  el.style.transform = 'translateX(8px)';
+  setTimeout(() => { el.remove(); updateProgress(); }, 200);
+}
+
+// init
+updateProgress();
+</script>
+</body>
+</html>
