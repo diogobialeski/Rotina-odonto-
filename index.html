@@ -537,6 +537,11 @@ body::after{
       <div class="card-title">Plano</div>
       <div class="card-sub">Rotina · semana · prioridades</div>
     </div>
+    <div class="card wide" onclick="go('s-materiais')">
+  <span class="card-icon">🛒</span>
+  <div class="card-title">Materiais do Semestre</div>
+  <div class="card-sub">Lista de compras · preços · total</div>
+</div>
   </div>
 </div>
 
@@ -691,6 +696,39 @@ body::after{
 <!-- ══════════════════════════════════════ -->
 <!-- PLANO -->
 <!-- ══════════════════════════════════════ -->
+ <div class="screen" id="s-materiais">
+  <button class="back" onclick="go('s-home')">voltar</button>
+  <div class="pg-title">Materiais</div>
+  <div class="pg-sub">Lista de compras do semestre</div>
+
+  <div id="mat-summary" style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--s1);border:1px solid var(--border);border-radius:10px;margin-bottom:16px;">
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-bottom:3px;">Total da lista</div>
+      <div id="mat-total" style="font-size:22px;font-weight:700;color:var(--green);">R$ 0,00</div>
+    </div>
+    <div style="text-align:right;">
+      <div id="mat-bought-val" style="font-size:16px;font-weight:700;color:var(--blue);">0</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);">comprados</div>
+    </div>
+  </div>
+
+  <div id="mat-list"></div>
+
+  <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px;">
+    <input id="mat-nome" class="add-in" placeholder="Nome do material..." maxlength="80">
+    <div style="display:flex;gap:6px;">
+      <input id="mat-cat" class="add-in" placeholder="Categoria (ex: livro, EPI...)" maxlength="40">
+      <input id="mat-preco" class="add-in" type="number" placeholder="R$" style="width:90px;flex-shrink:0;" min="0" step="0.01">
+    </div>
+    <button class="add-btn" style="width:100%;padding:10px;" onclick="addMat()">+ adicionar material</button>
+  </div>
+
+  <div style="margin-top:20px;">
+    <div class="sec-lbl">Importar lista (cole abaixo)</div>
+    <textarea id="mat-import" class="fi" rows="4" placeholder="Cole sua lista aqui, um item por linha. Ex:&#10;Luva de procedimento - R$ 25,00&#10;Máscara N95&#10;Espelho clínico - R$ 15,00"></textarea>
+    <button class="add-btn" style="width:100%;padding:10px;margin-top:6px;" onclick="importMat()">importar lista</button>
+  </div>
+</div>
 <div class="screen" id="s-plano">
   <button class="back" onclick="go('s-home')">voltar</button>
   <div class="pg-title">Plano</div>
@@ -796,6 +834,7 @@ function go(id){
   if(id==='s-calendario'){renderCal();renderUrg();}
   if(id==='s-diario'){renderJDay();renderEntries();}
   if(id==='s-progresso'){renderProgress();}
+  if(id==='s-materiais'){renderMat();}
   if(id==='s-checklist'){updateDateSub();}
 }
 
@@ -1040,7 +1079,69 @@ function renderProgress(){
   if(!sorted.length){sl.innerHTML='<div style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--muted)">Nenhuma matéria registrada ainda</div>';return;}
   sl.innerHTML=sorted.map(([s,n])=>`<div class="subj-item"><div class="subj-n">${n}×</div><div class="subj-t">${s}</div></div>`).join('');
 }
-
+// ── MATERIAIS ─────────────────────────────────────
+function renderMat(){
+  const items=ld('materiais',[]);
+  const list=document.getElementById('mat-list');
+  if(!items.length){
+    list.innerHTML='<div style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--muted);padding:8px 0">Nenhum material ainda. Adicione abaixo!</div>';
+    document.getElementById('mat-total').textContent='R$ 0,00';
+    document.getElementById('mat-bought-val').textContent='0';
+    return;
+  }
+  let total=0,bought=0;
+  items.forEach(i=>{if(i.preco)total+=parseFloat(i.preco);if(i.bought)bought++;});
+  document.getElementById('mat-total').textContent='R$ '+total.toFixed(2).replace('.',',');
+  document.getElementById('mat-bought-val').textContent=bought+'/'+items.length;
+  list.innerHTML=items.map((it,i)=>`
+    <div class="mat-item ${it.bought?'bought':''}" >
+      <div class="mat-cb" onclick="togMat(${i})"></div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:12px;color:var(--white);${it.bought?'text-decoration:line-through;color:var(--dim)':''}">${it.nome}</div>
+        ${it.cat?`<div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);">${it.cat}</div>`:''}
+      </div>
+      ${it.preco?`<div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--orange);white-space:nowrap;">R$ ${parseFloat(it.preco).toFixed(2).replace('.',',')}</div>`:''}
+      <div onclick="delMat(${i})" style="font-size:10px;color:var(--muted);padding:2px 4px;cursor:pointer;">✕</div>
+    </div>
+  `).join('');
+}
+function addMat(){
+  const nome=document.getElementById('mat-nome').value.trim();
+  if(!nome)return;
+  const cat=document.getElementById('mat-cat').value.trim();
+  const preco=document.getElementById('mat-preco').value;
+  const items=ld('materiais',[]);
+  items.push({nome,cat,preco,bought:false});
+  sd('materiais',items);
+  document.getElementById('mat-nome').value='';
+  document.getElementById('mat-cat').value='';
+  document.getElementById('mat-preco').value='';
+  renderMat();
+}
+function togMat(i){
+  const items=ld('materiais',[]);
+  items[i].bought=!items[i].bought;
+  sd('materiais',items);renderMat();
+}
+function delMat(i){
+  const items=ld('materiais',[]);
+  items.splice(i,1);sd('materiais',items);renderMat();
+}
+function importMat(){
+  const text=document.getElementById('mat-import').value.trim();
+  if(!text)return;
+  const lines=text.split('\n').filter(l=>l.trim());
+  const items=ld('materiais',[]);
+  lines.forEach(line=>{
+    const match=line.match(/R\$\s*([\d,\.]+)/);
+    const preco=match?match[1].replace(',','.'):'';
+    const nome=line.replace(/[-–]\s*R\$\s*[\d,\.]+/,'').trim();
+    if(nome)items.push({nome,cat:'',preco,bought:false});
+  });
+  sd('materiais',items);
+  document.getElementById('mat-import').value='';
+  renderMat();
+}
 // ── INIT ──────────────────────────────────────────
 initHome();
 initCal();
