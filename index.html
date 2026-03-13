@@ -7,6 +7,7 @@
 <title>Hub · Odontologia</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="color-scheme" content="dark">
 <meta name="apple-mobile-web-app-title" content="🦷 Hub">
 <link rel="apple-touch-icon" href="https://fav.farm/🦷">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -174,14 +175,25 @@ flex:1;background:var(–s1);border:none;
 border-radius:9px;padding:10px 13px;
 font-family:‘Syne’,sans-serif;font-size:12px;
 color:var(–white);outline:none;
+-webkit-appearance:none;appearance:none;
+-webkit-text-fill-color:var(–white);
 }
 .add-in::placeholder{color:var(–dim);}
 .add-btn{
 background:var(–s2);border:none;border-radius:9px;
 padding:10px 14px;font-family:‘JetBrains Mono’,monospace;
 font-size:9px;color:var(–dim);cursor:pointer;transition:color .15s;
+-webkit-appearance:none;appearance:none;
 }
 .add-btn:hover{color:var(–white);}
+input,textarea,select,button{
+-webkit-appearance:none;appearance:none;
+background-color:transparent;
+}
+input[type=“number”]{-webkit-appearance:none;appearance:none;}
+.fi{-webkit-text-fill-color:var(–white);}
+.back{-webkit-text-fill-color:var(–dim);}
+a{color:inherit;}
 
 /* CALENDAR */
 .cal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
