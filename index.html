@@ -186,14 +186,20 @@ font-size:9px;color:var(–dim);cursor:pointer;transition:color .15s;
 -webkit-appearance:none;appearance:none;
 }
 .add-btn:hover{color:var(–white);}
-input,textarea,select,button{
--webkit-appearance:none;appearance:none;
-background-color:transparent;
+input,textarea,select{
+-webkit-box-shadow:0 0 0 1000px var(–s1) inset !important;
+-webkit-text-fill-color:var(–white) !important;
+color:var(–white) !important;
+background:var(–s1) !important;
+border:none !important;
+outline:none !important;
+-webkit-appearance:none !important;
+appearance:none !important;
 }
-input[type=“number”]{-webkit-appearance:none;appearance:none;}
-.fi{-webkit-text-fill-color:var(–white);}
-.back{-webkit-text-fill-color:var(–dim);}
-a{color:inherit;}
+input::placeholder,textarea::placeholder{
+-webkit-text-fill-color:var(–dim) !important;
+color:var(–dim) !important;
+}
 
 /* CALENDAR */
 .cal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
