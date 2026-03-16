@@ -3,396 +3,419 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Hub · Odontologia</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="color-scheme" content="dark">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="color-scheme" content="dark">
 <meta name="apple-mobile-web-app-title" content="🦷 Hub">
 <link rel="apple-touch-icon" href="https://fav.farm/🦷">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Hub · Odontologia</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#0a0a0a;
-  --s1:#1a1a1a;
-  --s2:#222222;
-  --border:#2a2a2a;
-  --border2:#333333;
-  --white:#e0e0e0;
-  --dim:#666666;
-  --muted:#333333;
-  --blue:#4a90d9;
-  --blue-dim:rgba(74,144,217,.06);
-  --green:#3d9e6e;
-  --orange:#c97d3a;
-  --red:#b05555;
-  --purple:#7c5cbf;
-}
+/* ── RESET ─────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{
   height:100%;
-  background:#0a0a0a;
-  color:#e0e0e0;
+  background:#0d0d0d;
+  color:#dedede;
   font-family:'Syne',sans-serif;
   font-size:14px;
+  -webkit-font-smoothing:antialiased;
   overflow:hidden;
 }
+
+/* ── CORES ─────────────────────────── */
+:root{
+–bg:    #0d0d0d;
+–card:  #181818;
+–raised:#202020;
+–line:  #2a2a2a;
+–dim:   #5a5a5a;
+–txt:   #dedede;
+–blue:  #4a90d9;
+–green: #3d9e6e;
+–orange:#c97d3a;
+–red:   #b05555;
+–purple:#7c5cbf;
+}
+
+/* ── SCREENS ───────────────────────── */
 .screen{
-  position:fixed;inset:0;
-  overflow-y:auto;
-  padding:52px 22px 60px;
-  display:none;
-  background:#0a0a0a;
-  animation:fadeIn .2s ease;
+position:fixed;inset:0;
+overflow-y:auto;
+padding:56px 20px 72px;
+display:none;
+background:var(–bg);
 }
 .screen.active{display:block;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 
-/* BACK */
+/* ── VOLTAR ────────────────────────── */
 .back{
-display:inline-flex;align-items:center;gap:7px;
+display:inline-flex;align-items:center;gap:6px;
+font-family:‘JetBrains Mono’,monospace;font-size:10px;
+letter-spacing:.08em;color:var(–blue);
+margin-bottom:24px;cursor:pointer;
+background:none;border:none;padding:0;
+}
+.back::before{content:‘←’;}
+
+/* ── HEADER HOME ───────────────────── */
+.eyebrow{
+font-family:‘JetBrains Mono’,monospace;font-size:9px;
+letter-spacing:.2em;text-transform:uppercase;
+color:var(–dim);margin-bottom:8px;
+}
+.h-title{
+font-size:30px;font-weight:800;letter-spacing:-.04em;
+line-height:1.1;margin-bottom:6px;color:var(–txt);
+}
+.h-title em{color:var(–dim);font-style:normal;font-weight:400;}
+.h-sub{
+font-family:‘JetBrains Mono’,monospace;font-size:9px;
+color:var(–dim);margin-bottom:28px;
+}
+
+/* ── TODAY STRIP ───────────────────── */
+.today-strip{
+display:flex;align-items:center;justify-content:space-between;
+padding:14px 16px;
+background:var(–card);
+border-left:3px solid var(–blue);
+border-radius:0 10px 10px 0;
+margin-bottom:28px;
+}
+.ts-l .ts-date{font-size:13px;font-weight:600;color:var(–txt);}
+.ts-l .ts-sub{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);margin-top:2px;}
+.ts-pct{font-family:‘JetBrains Mono’,monospace;font-size:22px;font-weight:500;color:var(–blue);}
+
+/* ── CARDS GRID ────────────────────── */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.card{
+background:var(–card);
+border-radius:14px;
+padding:18px 16px;
+cursor:pointer;
+position:relative;overflow:hidden;
+-webkit-tap-highlight-color:transparent;
+}
+.card:active{opacity:.7;}
+.card.wide{grid-column:span 2;}
+.card-stripe{
+position:absolute;top:0;left:0;right:0;height:2px;
+background:var(–blue);border-radius:14px 14px 0 0;
+}
+.card-icon{font-size:26px;margin-bottom:12px;display:block;}
+.card-title{font-size:14px;font-weight:700;color:var(–txt);margin-bottom:3px;}
+.card-desc{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);line-height:1.5;}
+
+/* ── PAGE HEADER ───────────────────── */
+.pg-title{font-size:24px;font-weight:800;letter-spacing:-.03em;color:var(–txt);margin-bottom:4px;}
+.pg-sub{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);margin-bottom:24px;}
+
+/* ── SECTION LABEL ─────────────────── */
+.slbl{
+font-family:‘JetBrains Mono’,monospace;font-size:9px;
+letter-spacing:.15em;text-transform:uppercase;color:var(–dim);
+display:flex;align-items:center;gap:10px;
+margin:20px 0 10px;
+}
+.slbl::after{content:’’;flex:1;height:1px;background:var(–line);}
+
+/* ── INPUTS ────────────────────────── */
+.inp{
+display:block;width:100%;
+background:var(–card);
+border:1.5px solid var(–line);
+border-radius:10px;
+padding:12px 14px;
+font-family:‘Syne’,sans-serif;font-size:13px;
+color:var(–txt);
+outline:none;
+-webkit-appearance:none;
+resize:none;
+}
+.inp::placeholder{color:var(–dim);}
+.inp:focus{border-color:var(–blue);}
+
+/* ── BUTTONS ───────────────────────── */
+.btn{
+display:block;width:100%;
+background:var(–raised);
+border:1.5px solid var(–line);
+border-radius:10px;
+padding:12px 16px;
+font-family:‘JetBrains Mono’,monospace;font-size:10px;
+color:var(–dim);
+cursor:pointer;text-align:center;
+-webkit-appearance:none;
+}
+.btn:active{opacity:.7;}
+.btn.primary{background:var(–blue);border-color:var(–blue);color:#fff;font-family:‘Syne’,sans-serif;font-size:13px;font-weight:600;}
+.btn.success{background:var(–green);border-color:var(–green);color:#fff;font-family:‘Syne’,sans-serif;font-size:13px;font-weight:600;}
+.btn.danger{background:rgba(176,85,85,.15);border-color:var(–red);color:var(–red);font-family:‘Syne’,sans-serif;font-size:13px;font-weight:600;}
+.btn-row{display:flex;gap:8px;margin-top:8px;}
+.btn-row .btn{flex:1;}
+.btn-sm{
+background:var(–raised);border:1.5px solid var(–line);border-radius:8px;
+padding:8px 14px;font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);
+cursor:pointer;white-space:nowrap;-webkit-appearance:none;
+}
+.btn-sm:active{opacity:.7;}
+
+/* ── SELECT ────────────────────────── */
+select.inp{
+background-image:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘8’ viewBox=‘0 0 12 8’%3E%3Cpath d=‘M1 1l5 5 5-5’ stroke=’%235a5a5a’ stroke-width=‘1.5’ fill=‘none’ stroke-linecap=‘round’/%3E%3C/svg%3E”);
+background-repeat:no-repeat;
+background-position:right 14px center;
+padding-right:36px;
+}
+
+/* ── ROW INPUT ─────────────────────── */
+.inp-row{display:flex;gap:8px;margin-top:8px;}
+.inp-row .inp{flex:1;}
+.inp-row .inp.sm{width:90px;flex:none;}
+
+/* ── CHECKLIST ─────────────────────── */
+.grp-lbl{
 font-family:‘JetBrains Mono’,monospace;font-size:9px;
 letter-spacing:.1em;color:var(–dim);
-margin-bottom:28px;cursor:pointer;
-border:none;background:none;padding:0;
+padding:14px 0 6px;
 }
-.back::before{content:‘←’;font-size:12px;}
-.back:hover{color:var(–white);}
-
-/* HOME HEADER */
-.home-eyebrow{
-font-family:‘JetBrains Mono’,monospace;font-size:9px;
-letter-spacing:.18em;text-transform:uppercase;
-color:var(–dim);margin-bottom:10px;
-}
-.home-title{
-font-size:28px;font-weight:800;letter-spacing:-.04em;
-line-height:1.1;margin-bottom:6px;
-}
-.home-title span{color:var(–dim);font-weight:400;}
-.home-sub{
-font-family:‘JetBrains Mono’,monospace;font-size:9px;
-color:var(–dim);margin-bottom:32px;
-}
-
-/* TODAY STRIP */
-.today-strip{
-padding:16px 18px;
-background:var(–s1);
-border-left:2px solid var(–blue);
-border-radius:0 10px 10px 0;
-margin-bottom:32px;
-display:flex;align-items:center;justify-content:space-between;
-}
-.ts-date{font-size:13px;font-weight:600;}
-.ts-sub{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);margin-top:2px;}
-.ts-pct{font-family:‘JetBrains Mono’,monospace;font-size:20px;font-weight:500;color:var(–blue);}
-
-/* CARDS */
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:32px;}
-.card{
-background:var(–s1);
-border-radius:14px;
-padding:20px 18px;
-cursor:pointer;
-transition:background .2s;
-position:relative;overflow:hidden;
-}
-.card:active{transform:scale(.97);}
-.card:hover{background:var(–s2);}
-.card.wide{grid-column:span 2;}
-.card-accent{
-position:absolute;top:0;left:0;right:0;height:2px;
-background:var(–blue);opacity:.6;border-radius:14px 14px 0 0;
-}
-.card-icon{font-size:24px;margin-bottom:14px;display:block;}
-.card-title{font-size:14px;font-weight:600;margin-bottom:4px;}
-.card-sub{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);line-height:1.5;}
-
-/* PAGE TITLE */
-.pg-title{font-size:22px;font-weight:700;letter-spacing:-.03em;margin-bottom:4px;}
-.pg-sub{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);margin-bottom:28px;}
-
-/* SEC LABEL */
-.sec-lbl{
-font-family:‘JetBrains Mono’,monospace;font-size:9px;
-letter-spacing:.14em;text-transform:uppercase;
-color:var(–dim);margin-bottom:10px;margin-top:4px;
-display:flex;align-items:center;gap:10px;
-}
-.sec-lbl::after{content:’’;flex:1;height:1px;background:var(–border);}
-
-/* PROGRESS RING */
-.progress-row{
-display:flex;align-items:center;gap:16px;
-padding:16px;background:var(–s1);
-border-radius:12px;margin-bottom:16px;
-}
-.ring-wrap{position:relative;width:56px;height:56px;flex-shrink:0;}
-.ring-wrap svg{transform:rotate(-90deg);}
-.ring-bg{fill:none;stroke:#1e1e1e;stroke-width:3;}
-.ring-fg{
-fill:none;stroke:var(–blue);stroke-width:3;stroke-linecap:round;
-stroke-dasharray:142;stroke-dashoffset:142;
-transition:stroke-dashoffset .6s cubic-bezier(.4,0,.2,1);
-filter:drop-shadow(0 0 5px rgba(74,144,217,.5));
-}
-.ring-pct{
-position:absolute;inset:0;display:flex;align-items:center;
-justify-content:center;font-family:‘JetBrains Mono’,monospace;
-font-size:11px;font-weight:500;
-}
-.prog-info{flex:1;}
-.prog-title{font-size:13px;font-weight:600;margin-bottom:3px;}
-.prog-sub{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);margin-bottom:8px;}
-.prog-bar-bg{height:2px;background:var(–border2);border-radius:1px;}
-.prog-bar{height:100%;background:var(–blue);border-radius:1px;width:0;transition:width .6s;}
-.prog-counts{display:flex;gap:12px;margin-top:5px;}
-.prog-count{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);}
-.prog-count span{color:var(–white);}
-
-/* CHECKLIST ITEMS */
-.grp-lbl{font-family:‘JetBrains Mono’,monospace;font-size:9px;letter-spacing:.1em;color:var(–dim);padding:12px 0 6px;}
 .ci{
-display:flex;align-items:center;gap:10px;
-padding:11px 14px;background:var(–s1);
-border-radius:9px;cursor:pointer;margin-bottom:4px;
-transition:background .15s;position:relative;overflow:hidden;user-select:none;
+display:flex;align-items:center;gap:12px;
+padding:12px 14px;background:var(–card);
+border-radius:10px;margin-bottom:4px;
+cursor:pointer;position:relative;overflow:hidden;
+user-select:none;-webkit-tap-highlight-color:transparent;
 }
-.ci::before{content:’’;position:absolute;left:0;top:0;bottom:0;width:2px;background:transparent;transition:background .2s;}
-.ci:hover{background:var(–s2);}
-.ci.done::before{background:var(–green);}
-.ci.done .ci-text{color:var(–dim);text-decoration:line-through;}
-.cb{width:13px;height:13px;border:1px solid var(–border2);border-radius:3px;flex-shrink:0;position:relative;transition:background .2s;}
-.ci.done .cb{background:var(–green);border-color:var(–green);}
-.ci.done .cb::after{content:’’;position:absolute;top:2px;left:3px;width:5px;height:3px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg);}
-.ci-text{font-size:12px;color:var(–white);flex:1;transition:color .2s;}
-.ci-tag{font-family:‘JetBrains Mono’,monospace;font-size:8px;padding:2px 6px;border-radius:3px;background:var(–s2);color:var(–dim);}
+.ci-bar{position:absolute;left:0;top:0;bottom:0;width:2px;background:transparent;transition:background .2s;}
+.ci.done .ci-bar{background:var(–green);}
+.ci-cb{width:14px;height:14px;border:1.5px solid var(–line);border-radius:4px;flex-shrink:0;position:relative;transition:all .2s;}
+.ci.done .ci-cb{background:var(–green);border-color:var(–green);}
+.ci.done .ci-cb::after{content:’’;position:absolute;top:2px;left:3px;width:5px;height:3px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg);}
+.ci-txt{font-size:12px;color:var(–txt);flex:1;transition:color .2s;}
+.ci.done .ci-txt{color:var(–dim);text-decoration:line-through;}
+.ci-tag{font-family:‘JetBrains Mono’,monospace;font-size:8px;padding:2px 7px;border-radius:4px;background:var(–raised);color:var(–dim);}
 .ci.done .ci-tag{opacity:.3;}
-.add-row{display:flex;gap:6px;margin-top:10px;}
-.add-in{
-flex:1;background:#1c1c1c;border:1px solid #2a2a2a;
-border-radius:9px;padding:11px 13px;
-font-family:‘Syne’,sans-serif;font-size:13px;
-color:#e0e0e0;outline:none;
--webkit-appearance:none;appearance:none;
-width:auto;
-}
-.add-in::placeholder{color:#555;}
-.add-in:focus{border-color:#4a90d9;}
-.add-btn{
-background:#1c1c1c;border:1px solid #2a2a2a;border-radius:9px;
-padding:11px 16px;font-family:‘JetBrains Mono’,monospace;
-font-size:10px;color:#888;cursor:pointer;transition:color .15s,border-color .15s;
-white-space:nowrap;
--webkit-appearance:none;appearance:none;
-}
-.add-btn:hover{color:#e0e0e0;border-color:#4a90d9;}
-input,textarea,select{
--webkit-appearance:none;appearance:none;
-background:#1c1c1c;
-color:#e0e0e0;
-border:1px solid #2a2a2a;
-border-radius:9px;
-font-family:‘Syne’,sans-serif;
-font-size:13px;
-padding:11px 13px;
-outline:none;
-box-sizing:border-box;
-}
-input::placeholder,textarea::placeholder{color:#555;}
-input:focus,textarea:focus,select:focus{border-color:#4a90d9;}
-select option{background:#1c1c1c;color:#e0e0e0;}
-button{-webkit-appearance:none;appearance:none;}
 
-/* CALENDAR */
-.cal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.cal-month{font-size:13px;font-weight:600;}
-.cal-arr{background:var(–s2);border:none;border-radius:6px;color:var(–dim);width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:color .15s;}
-.cal-arr:hover{color:var(–white);}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
-.cal-dow{font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–dim);text-align:center;padding:4px 0;}
-.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:11px;cursor:pointer;transition:background .15s;color:var(–dim);position:relative;}
-.cal-day:hover{background:var(–s2);color:var(–white);}
+/* ── PROGRESS RING ─────────────────── */
+.prog-box{
+display:flex;align-items:center;gap:16px;
+padding:16px;background:var(–card);border-radius:12px;margin-bottom:16px;
+}
+.ring-wrap{position:relative;width:60px;height:60px;flex-shrink:0;}
+.ring-wrap svg{transform:rotate(-90deg);}
+.r-bg{fill:none;stroke:var(–raised);stroke-width:4;}
+.r-fg{fill:none;stroke:var(–blue);stroke-width:4;stroke-linecap:round;stroke-dasharray:151;stroke-dashoffset:151;transition:stroke-dashoffset .5s ease;}
+.ring-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:‘JetBrains Mono’,monospace;font-size:11px;font-weight:500;color:var(–txt);}
+.prog-info{flex:1;}
+.prog-ttl{font-size:13px;font-weight:600;color:var(–txt);margin-bottom:2px;}
+.prog-s{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);margin-bottom:8px;}
+.prog-track{height:2px;background:var(–raised);border-radius:2px;}
+.prog-fill{height:100%;background:var(–blue);border-radius:2px;width:0;transition:width .5s;}
+.prog-ct{display:flex;gap:14px;margin-top:6px;}
+.prog-c{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);}
+.prog-c b{color:var(–txt);font-weight:500;}
+
+/* ── CALENDAR ──────────────────────── */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.cal-mo{font-size:13px;font-weight:700;color:var(–txt);}
+.cal-arr{background:var(–raised);border:1.5px solid var(–line);border-radius:8px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:var(–dim);font-size:14px;cursor:pointer;-webkit-appearance:none;}
+.cal-arr:active{opacity:.6;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+.cal-dow{font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–dim);text-align:center;padding:5px 0;}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:7px;font-size:11px;color:var(–dim);cursor:pointer;position:relative;}
+.cal-day:active{background:var(–raised);}
 .cal-day.today{background:var(–blue);color:#fff;font-weight:700;}
-.cal-day.has-entry::after{content:’’;position:absolute;bottom:2px;width:3px;height:3px;border-radius:50%;background:var(–green);}
-.cal-day.today.has-entry::after{background:#fff;}
-.cal-day.has-urgent::after{background:var(–orange);}
-.cal-day.empty,.cal-day.other{color:var(–muted);opacity:.2;cursor:default;}
+.cal-day.has-e::after{content:’’;position:absolute;bottom:2px;width:3px;height:3px;border-radius:50%;background:var(–green);}
+.cal-day.today.has-e::after{background:rgba(255,255,255,.7);}
+.cal-day.has-u::after{content:’’;position:absolute;bottom:2px;width:3px;height:3px;border-radius:50%;background:var(–orange);}
+.cal-day.empty{opacity:.15;pointer-events:none;}
 
-/* URGENT */
-.urg-item{display:flex;align-items:center;gap:10px;padding:10px 13px;background:var(–s1);border-left:2px solid var(–orange);border-radius:9px;margin-bottom:4px;cursor:pointer;transition:opacity .2s;}
-.urg-item.done-u{opacity:.35;}
-.urg-item.done-u .u-text{text-decoration:line-through;color:var(–dim);}
-.u-dt{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–orange);white-space:nowrap;}
-.u-text{font-size:12px;flex:1;}
-.u-del{font-size:10px;color:var(–dim);padding:2px 4px;cursor:pointer;}
-.date-in{width:110px;flex-shrink:0;background:var(–s1);border:none;border-radius:9px;padding:10px 8px;font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–dim);outline:none;}
-.date-in::-webkit-calendar-picker-indicator{filter:invert(.3);}
+/* ── URGENT ────────────────────────── */
+.urg-item{
+display:flex;align-items:center;gap:10px;
+padding:11px 13px;background:var(–card);
+border-left:2px solid var(–orange);border-radius:10px;margin-bottom:4px;cursor:pointer;
+}
+.urg-item.done{opacity:.35;}
+.urg-item.done .u-txt{text-decoration:line-through;}
+.u-dt{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–orange);white-space:nowrap;flex-shrink:0;}
+.u-txt{font-size:12px;color:var(–txt);flex:1;}
+.u-del{font-size:12px;color:var(–dim);padding:2px 4px;cursor:pointer;}
 
-/* JOURNAL */
-.day-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(–s1);border-radius:12px;margin-bottom:20px;}
-.day-nav-date{font-size:13px;font-weight:600;}
-.day-nav-sub{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);margin-top:2px;}
-.day-nav-btns{display:flex;gap:5px;}
-.dnb{background:var(–s2);border:none;border-radius:6px;color:var(–dim);height:28px;padding:0 10px;font-family:‘JetBrains Mono’,monospace;font-size:9px;cursor:pointer;transition:color .15s;}
-.dnb:hover{color:var(–white);}
-.fl{font-family:‘JetBrains Mono’,monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(–dim);margin-bottom:5px;margin-top:14px;}
-.fi{width:100%;background:#1c1c1c;border:1px solid #2a2a2a;border-radius:9px;padding:11px 13px;font-family:‘Syne’,sans-serif;font-size:13px;color:#e0e0e0;outline:none;resize:none;}
-.fi:focus{border-color:#4a90d9;}.fi::placeholder{color:#555;}
-.fi::placeholder{color:var(–dim);}
-.tog-row{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:var(–s1);border-radius:9px;margin-top:6px;}
-.tog-lbl{font-size:12px;color:var(–dim);}
-.tog{width:34px;height:18px;background:var(–border2);border-radius:9px;position:relative;cursor:pointer;border:none;flex-shrink:0;transition:background .2s;}
-.tog::after{content:’’;position:absolute;width:12px;height:12px;border-radius:50%;background:var(–dim);top:3px;left:3px;transition:transform .2s,background .2s;}
-.tog.on{background:var(–blue);}
-.tog.on::after{transform:translateX(16px);background:#fff;}
-.save-btn{width:100%;margin-top:18px;padding:13px;background:var(–blue);border:none;border-radius:10px;color:#fff;font-family:‘Syne’,sans-serif;font-size:13px;font-weight:600;cursor:pointer;opacity:.9;transition:opacity .2s;}
-.save-btn:hover{opacity:1;}
-.save-btn.ok{background:var(–green);}
-.ec{background:var(–s1);border-radius:10px;padding:13px 15px;margin-bottom:5px;cursor:pointer;transition:background .15s;}
-.ec:hover{background:var(–s2);}
-.ec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
-.ec-date{font-size:12px;font-weight:600;}
-.ec-badges{display:flex;gap:3px;}
-.ec-badge{font-family:‘JetBrains Mono’,monospace;font-size:7.5px;padding:2px 6px;border-radius:3px;background:var(–s2);color:var(–dim);}
+/* ── JOURNAL ───────────────────────── */
+.day-nav{
+display:flex;align-items:center;justify-content:space-between;
+padding:14px 16px;background:var(–card);border-radius:12px;margin-bottom:20px;
+}
+.dn-date{font-size:13px;font-weight:600;color:var(–txt);}
+.dn-sub{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);margin-top:2px;}
+.dn-btns{display:flex;gap:5px;}
+.dn-b{background:var(–raised);border:1.5px solid var(–line);border-radius:7px;color:var(–dim);height:28px;padding:0 10px;font-family:‘JetBrains Mono’,monospace;font-size:9px;cursor:pointer;-webkit-appearance:none;}
+.dn-b:active{opacity:.6;}
+.fl{font-family:‘JetBrains Mono’,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(–dim);margin-bottom:6px;margin-top:16px;}
+
+/* ── TOGGLE ────────────────────────── */
+.tog-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(–card);border-radius:10px;margin-top:6px;}
+.tog-lbl{font-size:13px;color:var(–txt);}
+.tog{width:38px;height:20px;background:var(–raised);border:1.5px solid var(–line);border-radius:10px;position:relative;cursor:pointer;-webkit-appearance:none;flex-shrink:0;transition:background .2s,border-color .2s;}
+.tog::after{content:’’;position:absolute;width:14px;height:14px;border-radius:50%;background:var(–dim);top:2px;left:2px;transition:transform .2s,background .2s;}
+.tog.on{background:var(–blue);border-color:var(–blue);}
+.tog.on::after{transform:translateX(18px);background:#fff;}
+
+/* ── ENTRY CARDS ───────────────────── */
+.ec{background:var(–card);border-radius:10px;padding:13px 15px;margin-bottom:5px;cursor:pointer;}
+.ec:active{opacity:.7;}
+.ec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.ec-date{font-size:12px;font-weight:600;color:var(–txt);}
+.ec-badges{display:flex;gap:4px;}
+.ec-badge{font-family:‘JetBrains Mono’,monospace;font-size:7.5px;padding:2px 7px;border-radius:4px;background:var(–raised);color:var(–dim);}
 .ec-badge.gym{color:var(–green);}
 .ec-badge.study{color:var(–blue);}
 .ec-line{font-size:11px;color:var(–dim);margin-bottom:2px;}
-.ec-note{font-size:10.5px;color:var(–muted);font-style:italic;}
+.ec-note{font-size:10.5px;color:var(–dim);font-style:italic;opacity:.7;}
 
-/* PROGRESS PAGE */
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:20px;}
-.stat{background:var(–s1);border-radius:12px;padding:16px 10px;text-align:center;}
-.stat-v{font-size:26px;font-weight:700;letter-spacing:-.03em;}
-.stat-l{font-family:‘JetBrains Mono’,monospace;font-size:7.5px;color:var(–dim);margin-top:3px;}
-.bar-wrap{background:var(–s1);border-radius:12px;padding:16px;}
-.bars{display:flex;align-items:flex-end;gap:5px;height:72px;}
-.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end;}
-.bar{width:100%;border-radius:3px 3px 0 0;background:var(–border2);min-height:2px;transition:height .4s ease;}
-.bar.has{background:var(–blue);opacity:.7;}
-.bar.today-b{background:var(–blue);opacity:1;box-shadow:0 0 8px rgba(74,144,217,.4);}
-.bar-dl{font-family:‘JetBrains Mono’,monospace;font-size:7.5px;color:var(–dim);}
-.subj-item{display:flex;align-items:center;gap:12px;padding:9px 13px;background:var(–s1);border-radius:9px;margin-bottom:4px;}
-.subj-n{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–blue);width:20px;flex-shrink:0;}
-.subj-t{font-size:12px;color:var(–dim);}
+/* ── STATS ─────────────────────────── */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;}
+.stat-box{background:var(–card);border-radius:12px;padding:16px 10px;text-align:center;}
+.stat-v{font-size:28px;font-weight:800;letter-spacing:-.03em;line-height:1;}
+.stat-l{font-family:‘JetBrains Mono’,monospace;font-size:7.5px;color:var(–dim);margin-top:4px;}
+.bars-wrap{background:var(–card);border-radius:12px;padding:16px;}
+.bars{display:flex;align-items:flex-end;gap:6px;height:80px;}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end;}
+.bar{width:100%;border-radius:4px 4px 0 0;background:var(–raised);min-height:3px;transition:height .4s ease;}
+.bar.active{background:var(–blue);opacity:.6;}
+.bar.today{background:var(–blue);opacity:1;}
+.bar-lbl{font-family:‘JetBrains Mono’,monospace;font-size:7.5px;color:var(–dim);}
+.subj-row{display:flex;align-items:center;gap:12px;padding:10px 13px;background:var(–card);border-radius:10px;margin-bottom:4px;}
+.subj-n{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–blue);width:22px;flex-shrink:0;}
+.subj-t{font-size:12px;color:var(–txt);}
 
-/* PLANO */
-.week{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:4px;}
-.wday{background:var(–s1);border-radius:9px;padding:12px 6px;text-align:center;}
-.wday-name{font-family:‘JetBrains Mono’,monospace;font-size:8px;letter-spacing:.08em;color:var(–dim);margin-bottom:8px;}
-.wday-div{height:1px;background:var(–border);margin:0 0 8px;}
-.wday-sub{font-size:9.5px;font-weight:500;line-height:1.35;}
-.plist{display:flex;flex-direction:column;gap:4px;}
-.pitem{display:grid;grid-template-columns:36px 1fr;align-items:center;padding:10px 14px;background:var(–s1);border-radius:9px;}
-.pnum{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);}
-.pname{font-size:13px;font-weight:500;}
-.pdesc{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);margin-top:1px;}
-.lunch-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
-.lcard{background:var(–s1);border-radius:10px;padding:16px;}
-.lcard-title{font-size:11px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:7px;}
-.lcard-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-.lsteps{display:flex;flex-direction:column;gap:7px;}
-.lstep{display:flex;gap:10px;}
-.lstep-t{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);white-space:nowrap;padding-top:1px;width:34px;flex-shrink:0;}
-.lstep-d{font-size:11.5px;color:var(–dim);}
+/* ── PLANO ─────────────────────────── */
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:4px;}
+.wday{background:var(–card);border-radius:10px;padding:12px 6px;text-align:center;}
+.wday-n{font-family:‘JetBrains Mono’,monospace;font-size:8px;letter-spacing:.08em;color:var(–dim);margin-bottom:8px;}
+.wday-s{font-size:9.5px;font-weight:600;line-height:1.35;}
+.pri-list{display:flex;flex-direction:column;gap:4px;}
+.pri-item{display:grid;grid-template-columns:32px 1fr;align-items:center;padding:11px 13px;background:var(–card);border-radius:10px;}
+.pri-n{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);}
+.pri-name{font-size:13px;font-weight:600;}
+.pri-desc{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);margin-top:1px;}
+.lunch-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.lcard{background:var(–card);border-radius:12px;padding:16px;}
+.lcard-h{font-size:11px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+.ldot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.lstep{display:flex;gap:8px;margin-bottom:6px;}
+.lt{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);white-space:nowrap;width:34px;flex-shrink:0;padding-top:1px;}
+.ld{font-size:11px;color:var(–dim);}
 .timeline{display:flex;flex-direction:column;}
-.ti{display:grid;grid-template-columns:48px 1px 1fr;gap:0 18px;min-height:56px;}
-.ti-time{font-family:‘JetBrains Mono’,monospace;font-size:9.5px;color:var(–dim);padding-top:18px;text-align:right;}
-.ti-spine{display:flex;flex-direction:column;align-items:center;position:relative;}
-.ti-dot{width:6px;height:6px;border-radius:50%;background:var(–border2);margin-top:20px;flex-shrink:0;position:relative;z-index:1;}
-.ti-dot.key{width:8px;height:8px;margin-top:19px;}
-.ti-line{width:1px;flex:1;background:var(–border);margin-top:3px;}
-.ti:last-child .ti-line{display:none;}
-.ti-body{padding:12px 0 16px;}
-.ti-label{font-size:13px;font-weight:500;color:var(–white);margin-bottom:2px;}
+.ti{display:grid;grid-template-columns:46px 1px 1fr;gap:0 16px;min-height:52px;}
+.ti-t{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);padding-top:18px;text-align:right;}
+.ti-sp{display:flex;flex-direction:column;align-items:center;}
+.ti-dot{width:7px;height:7px;border-radius:50%;background:var(–line);margin-top:19px;flex-shrink:0;position:relative;z-index:1;}
+.ti-dot.key{width:9px;height:9px;margin-top:18px;}
+.ti-ln{width:1px;flex:1;background:var(–line);margin-top:3px;}
+.ti:last-child .ti-ln{display:none;}
+.ti-body{padding:12px 0 14px;}
+.ti-label{font-size:13px;font-weight:500;color:var(–txt);margin-bottom:2px;}
 .ti-label.dim{color:var(–dim);font-weight:400;}
-.ti-note{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–dim);}
-[data-accent=“blue”] .ti-dot{background:var(–blue);box-shadow:0 0 8px rgba(74,144,217,.5);}
-[data-accent=“green”] .ti-dot{background:var(–green);}
-[data-accent=“orange”] .ti-dot{background:var(–orange);}
-[data-accent=“purple”] .ti-dot{background:#7c5cbf;}
-[data-accent=“blue”] .ti-label{color:var(–blue);}
-[data-accent=“green”] .ti-label{color:var(–green);}
-[data-accent=“orange”] .ti-label{color:var(–orange);}
-[data-accent=“purple”] .ti-label{color:#7c5cbf;}
-.rules{display:flex;flex-direction:column;gap:1px;}
-.rule{display:flex;align-items:baseline;gap:16px;padding:11px 14px;border-left:1px solid var(–border);}
-.rule:hover{border-color:var(–blue);}
+.ti-note{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);}
+[data-a=“blue”] .ti-dot{background:var(–blue);}
+[data-a=“green”] .ti-dot{background:var(–green);}
+[data-a=“orange”] .ti-dot{background:var(–orange);}
+[data-a=“purple”] .ti-dot{background:var(–purple);}
+[data-a=“blue”] .ti-label{color:var(–blue);}
+[data-a=“green”] .ti-label{color:var(–green);}
+[data-a=“orange”] .ti-label{color:var(–orange);}
+[data-a=“purple”] .ti-label{color:var(–purple);}
+.rules{display:flex;flex-direction:column;gap:2px;}
+.rule{display:flex;align-items:baseline;gap:14px;padding:10px 13px;border-left:2px solid var(–line);}
 .rn{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);width:12px;flex-shrink:0;}
-.rt{font-size:12.5px;color:var(–dim);}
-.rt strong{color:var(–white);font-weight:500;}
-.rituals{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;}
-.rcard{background:var(–s1);border-radius:9px;padding:13px;}
-.rcard-icon{font-size:16px;margin-bottom:7px;}
-.rcard-t{font-size:11.5px;font-weight:500;margin-bottom:3px;}
-.rcard-d{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);}
-.footer-row{margin-top:48px;padding-top:20px;border-top:1px solid var(–border);display:flex;justify-content:space-between;}
-.footer-t{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);}
+.rt{font-size:12px;color:var(–dim);}
+.rt strong{color:var(–txt);font-weight:500;}
+.rituals{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.rcard{background:var(–card);border-radius:10px;padding:13px;}
+.rcard-i{font-size:18px;margin-bottom:6px;}
+.rcard-t{font-size:11.5px;font-weight:600;color:var(–txt);margin-bottom:2px;}
+.rcard-d{font-family:‘JetBrains Mono’,monospace;font-size:8.5px;color:var(–dim);}
 
-/* PLANO DE ENSINO */
-.pe-card{background:var(–s1);border-radius:10px;margin-bottom:6px;overflow:hidden;}
+/* ── PE ────────────────────────────── */
+.pe-card{background:var(–card);border-radius:12px;margin-bottom:6px;overflow:hidden;}
 .pe-head{padding:13px 15px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:10px;}
-.pe-bar-bg{height:2px;background:var(–border2);margin:0 15px;}
-.pe-bar{height:100%;border-radius:1px;width:0;transition:width .4s;}
+.pe-track{height:2px;background:var(–line);margin:0 15px;}
+.pe-fill{height:100%;border-radius:1px;width:0;transition:width .4s;}
 .pe-items{display:none;padding:8px 15px 13px;}
-.pe-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(–border);}
+.pe-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(–line);}
 .pe-item:last-child{border-bottom:none;}
-.pe-cb{width:13px;height:13px;border:1px solid var(–border2);border-radius:3px;flex-shrink:0;position:relative;cursor:pointer;transition:background .2s;}
+.pe-cb{width:14px;height:14px;border:1.5px solid var(–line);border-radius:4px;flex-shrink:0;position:relative;cursor:pointer;margin-top:1px;transition:all .2s;}
 
-/* MATERIAIS */
-.mat-summary{display:flex;align-items:center;justify-content:space-between;padding:16px;background:var(–s1);border-radius:12px;margin-bottom:16px;}
-.mat-item{display:flex;align-items:center;gap:10px;padding:10px 13px;background:var(–s1);border-radius:9px;margin-bottom:4px;transition:opacity .2s;}
+/* ── MATERIAIS ─────────────────────── */
+.mat-summary{
+display:flex;align-items:center;justify-content:space-between;
+padding:16px;background:var(–card);border-radius:12px;margin-bottom:16px;
+}
+.mat-total-l{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–dim);margin-bottom:3px;}
+.mat-total-v{font-size:24px;font-weight:800;color:var(–green);}
+.mat-count-v{font-size:18px;font-weight:700;color:var(–blue);}
+.mat-count-l{font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–dim);}
+.mat-item{
+display:flex;align-items:center;gap:10px;
+padding:11px 13px;background:var(–card);
+border-left:2px solid var(–line);border-radius:10px;margin-bottom:4px;
+transition:opacity .2s;
+}
 .mat-item.bought{opacity:.4;}
+.mat-cb{width:14px;height:14px;border:1.5px solid var(–line);border-radius:4px;flex-shrink:0;position:relative;cursor:pointer;transition:all .2s;}
+.mat-cb.on{background:var(–green);border-color:var(–green);}
+.mat-cb.on::after{content:’’;position:absolute;top:2px;left:3px;width:5px;height:3px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg);}
 
-/* ANKI */
-.anki-card{
-background:var(–s1);border-radius:16px;
-padding:32px 24px;min-height:200px;
+/* ── ANKI ──────────────────────────── */
+.anki-tabs{display:flex;gap:6px;margin-bottom:20px;}
+.atab{flex:1;padding:10px;background:var(–raised);border:1.5px solid var(–line);border-radius:10px;font-family:‘Syne’,sans-serif;font-size:12px;font-weight:600;color:var(–dim);cursor:pointer;text-align:center;-webkit-appearance:none;transition:all .2s;}
+.atab.on{background:var(–blue);border-color:var(–blue);color:#fff;}
+.anki-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+.ak-stat{background:var(–card);border-radius:10px;padding:12px 8px;text-align:center;}
+.ak-stat-v{font-size:22px;font-weight:800;}
+.ak-stat-l{font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–dim);margin-top:3px;}
+.ak-card{
+background:var(–card);border-radius:14px;
+padding:32px 22px;min-height:190px;
 display:flex;align-items:center;justify-content:center;
-text-align:center;cursor:pointer;
-transition:transform .15s;
-position:relative;margin-bottom:16px;
+text-align:center;cursor:pointer;margin-bottom:14px;
+position:relative;
 }
-.anki-card:active{transform:scale(.98);}
-.anki-front{font-size:16px;font-weight:600;line-height:1.5;}
-.anki-back{font-size:14px;color:var(–dim);line-height:1.6;display:none;}
-.anki-hint{font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–muted);position:absolute;bottom:12px;right:14px;}
-.anki-actions{display:flex;gap:8px;margin-bottom:24px;}
-.anki-btn{flex:1;padding:13px;border:none;border-radius:10px;font-family:‘Syne’,sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .2s;}
-.anki-btn:hover{opacity:.85;}
-.anki-btn.wrong{background:rgba(176,85,85,.2);color:var(–red);}
-.anki-btn.right{background:rgba(61,158,110,.2);color:var(–green);}
-.anki-btn.flip{background:var(–s2);color:var(–dim);flex:none;width:100%;}
-.anki-stats{display:flex;gap:8px;margin-bottom:20px;}
-.anki-stat{flex:1;background:var(–s1);border-radius:9px;padding:10px;text-align:center;}
-.anki-stat-v{font-size:18px;font-weight:700;}
-.anki-stat-l{font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–dim);margin-top:2px;}
-.anki-empty{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–dim);text-align:center;padding:32px 0;}
+.ak-card:active{opacity:.8;}
+.ak-front{font-size:16px;font-weight:600;color:var(–txt);line-height:1.5;}
+.ak-back{font-size:13px;color:var(–dim);line-height:1.6;margin-top:14px;display:none;}
+.ak-hint{font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–dim);position:absolute;bottom:12px;right:14px;}
+.ak-empty{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–dim);text-align:center;padding:40px 0;line-height:1.8;}
 
-/* BURST */
+/* ── DATE INPUT ────────────────────── */
+input[type=“date”].inp{color:var(–dim);}
+input[type=“date”].inp::-webkit-calendar-picker-indicator{filter:invert(.4);}
+
+/* ── BURST ─────────────────────────── */
 .burst{position:fixed;pointer-events:none;z-index:9999;}
-.burst-dot{position:absolute;width:5px;height:5px;border-radius:50%;animation:burst-fly .5s ease-out forwards;}
-@keyframes burst-fly{to{transform:translate(var(–tx),var(–ty));opacity:0;}}
+.bdot{position:absolute;width:5px;height:5px;border-radius:50%;animation:bfly .5s ease-out forwards;}
+@keyframes bfly{to{transform:translate(var(–tx),var(–ty));opacity:0;}}
 
-@media(max-width:400px){
-.week{grid-template-columns:repeat(4,1fr);}
-.rituals{grid-template-columns:1fr 1fr;}
-.lunch-grid{grid-template-columns:1fr;}
-}
+/* ── FOOTER ────────────────────────── */
+.footer{margin-top:40px;padding-top:18px;border-top:1px solid var(–line);display:flex;justify-content:space-between;}
+.footer-t{font-family:‘JetBrains Mono’,monospace;font-size:8.5px;color:var(–dim);}
 </style>
 
 </head>
 <body>
 
-<!-- HOME -->
+<!-- ══ HOME ═════════════════════════ -->
 
 <div class="screen active" id="s-home">
-  <div class="home-eyebrow" id="today-lbl">—</div>
-  <div class="home-title">Diogo <span>/ Odonto</span></div>
-  <div class="home-sub">5° Período · Noturno · Pai · Profissional</div>
+  <div class="eyebrow" id="today-lbl">—</div>
+  <div class="h-title">Diogo <em>/ Odonto</em></div>
+  <div class="h-sub">5° Período · Noturno · Pai · Profissional</div>
   <div class="today-strip">
-    <div>
+    <div class="ts-l">
       <div class="ts-date" id="ts-date">—</div>
       <div class="ts-sub">Checklist do dia</div>
     </div>
@@ -400,91 +423,91 @@ position:relative;margin-bottom:16px;
   </div>
   <div class="cards">
     <div class="card wide" onclick="go('s-checklist')">
-      <div class="card-accent"></div>
+      <div class="card-stripe"></div>
       <span class="card-icon">✅</span>
       <div class="card-title">Checklist do Dia</div>
-      <div class="card-sub">Tarefas diárias · manhã, almoço e noite</div>
+      <div class="card-desc">Tarefas diárias · manhã, almoço e noite</div>
     </div>
     <div class="card" onclick="go('s-diario')">
       <span class="card-icon">📓</span>
       <div class="card-title">Diário</div>
-      <div class="card-sub">Registrar o dia · matérias · notas</div>
+      <div class="card-desc">Registrar o dia · matérias · notas</div>
     </div>
     <div class="card" onclick="go('s-calendario')">
       <span class="card-icon">📅</span>
       <div class="card-title">Calendário</div>
-      <div class="card-sub">Tarefas urgentes · visão do mês</div>
+      <div class="card-desc">Tarefas urgentes · visão do mês</div>
     </div>
     <div class="card" onclick="go('s-progresso')">
       <span class="card-icon">📈</span>
       <div class="card-title">Progresso</div>
-      <div class="card-sub">Streak · gráficos · matérias</div>
+      <div class="card-desc">Streak · gráficos · matérias</div>
     </div>
     <div class="card" onclick="go('s-plano')">
       <span class="card-icon">🦷</span>
       <div class="card-title">Plano</div>
-      <div class="card-sub">Rotina · semana · prioridades</div>
+      <div class="card-desc">Rotina · semana · prioridades</div>
     </div>
     <div class="card" onclick="go('s-materiais')">
       <span class="card-icon">🛒</span>
       <div class="card-title">Materiais</div>
-      <div class="card-sub">Lista de compras · preços · total</div>
+      <div class="card-desc">Lista de compras · preços · total</div>
     </div>
     <div class="card" onclick="go('s-anki')">
       <span class="card-icon">🃏</span>
       <div class="card-title">Anki</div>
-      <div class="card-sub">Flashcards · estudar · revisar</div>
+      <div class="card-desc">Flashcards · estudar · revisar</div>
     </div>
   </div>
 </div>
 
-<!-- CHECKLIST -->
+<!-- ══ CHECKLIST ════════════════════ -->
 
 <div class="screen" id="s-checklist">
   <button class="back" onclick="go('s-home')">voltar</button>
   <div class="pg-title">Checklist</div>
-  <div class="pg-sub" id="cl-date-sub">—</div>
-  <div class="progress-row">
+  <div class="pg-sub" id="cl-sub">—</div>
+  <div class="prog-box">
     <div class="ring-wrap">
-      <svg width="56" height="56" viewBox="0 0 56 56">
-        <circle class="ring-bg" cx="28" cy="28" r="22.5"/>
-        <circle class="ring-fg" id="ring" cx="28" cy="28" r="22.5"/>
+      <svg width="60" height="60" viewBox="0 0 60 60">
+        <circle class="r-bg" cx="30" cy="30" r="24"/>
+        <circle class="r-fg" id="ring" cx="30" cy="30" r="24"/>
       </svg>
       <div class="ring-pct" id="pct">0%</div>
     </div>
     <div class="prog-info">
-      <div class="prog-title" id="prog-title">Hoje ainda não começou</div>
-      <div class="prog-sub" id="prog-sub">Complete as tarefas do dia</div>
-      <div class="prog-bar-bg"><div class="prog-bar" id="prog-bar"></div></div>
-      <div class="prog-counts">
-        <div class="prog-count"><span id="cnt-done">0</span> feitas</div>
-        <div class="prog-count"><span id="cnt-left">7</span> restantes</div>
+      <div class="prog-ttl" id="prog-ttl">Hoje ainda não começou</div>
+      <div class="prog-s" id="prog-s">Complete as tarefas do dia</div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+      <div class="prog-ct">
+        <div class="prog-c"><b id="cnt-done">0</b> feitas</div>
+        <div class="prog-c"><b id="cnt-left">7</b> restantes</div>
       </div>
     </div>
   </div>
   <div class="grp-lbl">— Manhã</div>
   <div id="list-manha">
-    <div class="ci" onclick="check(this)"><div class="cb"></div><span class="ci-text">Acordei às 06h30</span><span class="ci-tag">06h30</span></div>
-    <div class="ci" onclick="check(this)"><div class="cb"></div><span class="ci-text">Roupa e mochila prontas</span><span class="ci-tag">ritual</span></div>
+    <div class="ci" onclick="check(this)"><div class="ci-bar"></div><div class="ci-cb"></div><span class="ci-txt">Acordei às 06h30</span><span class="ci-tag">06h30</span></div>
+    <div class="ci" onclick="check(this)"><div class="ci-bar"></div><div class="ci-cb"></div><span class="ci-txt">Roupa e mochila prontas</span><span class="ci-tag">ritual</span></div>
   </div>
   <div class="grp-lbl">— Almoço</div>
   <div id="list-almoco">
-    <div class="ci" onclick="check(this)"><div class="cb"></div><span class="ci-text">Estudei ou fui à academia</span><span class="ci-tag">13h00</span></div>
-    <div class="ci" onclick="check(this)"><div class="cb"></div><span class="ci-text">Fiz flashcards no Anki</span><span class="ci-tag">anki</span></div>
+    <div class="ci" onclick="check(this)"><div class="ci-bar"></div><div class="ci-cb"></div><span class="ci-txt">Estudei ou fui à academia</span><span class="ci-tag">13h00</span></div>
+    <div class="ci" onclick="check(this)"><div class="ci-bar"></div><div class="ci-cb"></div><span class="ci-txt">Fiz flashcards no Anki</span><span class="ci-tag">anki</span></div>
   </div>
   <div class="grp-lbl">— Noite</div>
   <div id="list-noite">
-    <div class="ci" onclick="check(this)"><div class="cb"></div><span class="ci-text">Fiquei com o filho 18h–19h</span><span class="ci-tag">família</span></div>
-    <div class="ci" onclick="check(this)"><div class="cb"></div><span class="ci-text">Fui à aula</span><span class="ci-tag">19h10</span></div>
-    <div class="ci" onclick="check(this)"><div class="cb"></div><span class="ci-text">Preparei roupa, mochila e alarme</span><span class="ci-tag">ritual</span></div>
+    <div class="ci" onclick="check(this)"><div class="ci-bar"></div><div class="ci-cb"></div><span class="ci-txt">Fiquei com o filho 18h–19h</span><span class="ci-tag">família</span></div>
+    <div class="ci" onclick="check(this)"><div class="ci-bar"></div><div class="ci-cb"></div><span class="ci-txt">Fui à aula</span><span class="ci-tag">19h10</span></div>
+    <div class="ci" onclick="check(this)"><div class="ci-bar"></div><div class="ci-cb"></div><span class="ci-txt">Preparei roupa, mochila e alarme</span><span class="ci-tag">ritual</span></div>
   </div>
-  <div class="add-row" style="margin-top:14px">
-    <input class="add-in" id="new-item" placeholder="Adicionar tarefa..." maxlength="80" onkeydown="if(event.key==='Enter')addItem()">
-    <button class="add-btn" onclick="addItem()">+ add</button>
+  <div class="inp-row" style="margin-top:14px">
+    <input class="inp" id="new-item" placeholder="Adicionar tarefa..." maxlength="80" onkeydown="if(event.key==='Enter')addItem()">
+    <button class="btn-sm" onclick="addItem()">+ add</button>
   </div>
 </div>
 
-<!-- DIÁRIO -->
+<!-- ══ DIÁRIO ═══════════════════════ -->
 
 <div class="screen" id="s-diario">
   <button class="back" onclick="go('s-home')">voltar</button>
@@ -492,94 +515,94 @@ position:relative;margin-bottom:16px;
   <div class="pg-sub">Cada dia salvo para sempre</div>
   <div class="day-nav">
     <div>
-      <div class="day-nav-date" id="jd-title">—</div>
-      <div class="day-nav-sub" id="jd-sub">—</div>
+      <div class="dn-date" id="jd-title">—</div>
+      <div class="dn-sub" id="jd-sub">—</div>
     </div>
-    <div class="day-nav-btns">
-      <button class="dnb" onclick="jDay(-1)">‹</button>
-      <button class="dnb" onclick="jDay(0)">hoje</button>
-      <button class="dnb" onclick="jDay(1)">›</button>
+    <div class="dn-btns">
+      <button class="dn-b" onclick="jDay(-1)">‹</button>
+      <button class="dn-b" onclick="jDay(0)">hoje</button>
+      <button class="dn-b" onclick="jDay(1)">›</button>
     </div>
   </div>
   <div class="fl">Matéria estudada no almoço</div>
-  <input class="fi" id="j-mat" placeholder="Ex: Endodontia — canais radiculares..." maxlength="120">
+  <input class="inp" id="j-mat" placeholder="Ex: Endodontia — canais radiculares..." maxlength="120">
   <div class="fl">Material / Livro</div>
-  <input class="fi" id="j-livro" placeholder="Ex: Leonardo & Leal, cap. 4..." maxlength="120">
-  <div class="fl">Aula do dia (noturno)</div>
-  <input class="fi" id="j-aula" placeholder="Ex: Cirurgia — sutura e flaps..." maxlength="120">
+  <input class="inp" id="j-livro" placeholder="Ex: Leonardo & Leal, cap. 4..." maxlength="120">
+  <div class="fl">Aula do dia</div>
+  <input class="inp" id="j-aula" placeholder="Ex: Cirurgia — sutura e flaps..." maxlength="120">
   <div class="fl">Como foi o dia?</div>
-  <textarea class="fi" id="j-nota" rows="3" placeholder="Escreva livremente..."></textarea>
+  <textarea class="inp" id="j-nota" rows="3" placeholder="Escreva livremente..."></textarea>
   <div class="tog-row"><span class="tog-lbl">🏋️ Fui à academia</span><button class="tog" id="tog-gym" onclick="togGym()"></button></div>
   <div class="tog-row"><span class="tog-lbl">📚 Estudei no almoço</span><button class="tog" id="tog-study" onclick="togStudy()"></button></div>
-  <button class="save-btn" id="save-btn" onclick="saveDay()">Salvar dia</button>
-  <div style="margin-top:28px">
-    <div class="sec-lbl">Dias Anteriores</div>
-    <div id="entries-list"></div>
+  <div style="margin-top:16px">
+    <button class="btn primary" id="save-btn" onclick="saveDay()">Salvar dia</button>
   </div>
+  <div class="slbl" style="margin-top:28px">Dias Anteriores</div>
+  <div id="entries-list"></div>
 </div>
 
-<!-- CALENDÁRIO -->
+<!-- ══ CALENDÁRIO ═══════════════════ -->
 
 <div class="screen" id="s-calendario">
   <button class="back" onclick="go('s-home')">voltar</button>
   <div class="pg-title">Calendário</div>
   <div class="pg-sub">Tarefas urgentes · visão do mês</div>
-  <div class="cal-hd">
+  <div class="cal-nav">
     <button class="cal-arr" onclick="chMes(-1)">‹</button>
-    <div class="cal-month" id="cal-title">—</div>
+    <div class="cal-mo" id="cal-title">—</div>
     <button class="cal-arr" onclick="chMes(1)">›</button>
   </div>
   <div class="cal-grid">
     <div class="cal-dow">D</div><div class="cal-dow">S</div><div class="cal-dow">T</div><div class="cal-dow">Q</div><div class="cal-dow">Q</div><div class="cal-dow">S</div><div class="cal-dow">S</div>
     <div id="cal-days" style="display:contents"></div>
   </div>
-  <div class="sec-lbl" style="margin-top:22px">Tarefas Urgentes</div>
+  <div class="slbl">Tarefas Urgentes</div>
   <div id="urg-list"></div>
-  <div class="add-row" style="margin-top:8px">
-    <input class="add-in" id="urg-in" placeholder="Nova tarefa urgente..." maxlength="80" onkeydown="if(event.key==='Enter')addUrg()">
-    <input class="date-in" id="urg-dt" type="date">
-    <button class="add-btn" onclick="addUrg()">+ add</button>
+  <div class="inp-row" style="margin-top:8px">
+    <input class="inp" id="urg-in" placeholder="Nova tarefa urgente..." maxlength="80" onkeydown="if(event.key==='Enter')addUrg()">
+    <input class="inp sm" id="urg-dt" type="date">
+    <button class="btn-sm" onclick="addUrg()">+ add</button>
   </div>
 </div>
 
-<!-- PROGRESSO -->
+<!-- ══ PROGRESSO ════════════════════ -->
 
 <div class="screen" id="s-progresso">
   <button class="back" onclick="go('s-home')">voltar</button>
   <div class="pg-title">Progresso</div>
   <div class="pg-sub">Consistência acima de tudo</div>
   <div class="stats-grid">
-    <div class="stat"><div class="stat-v" id="st-streak" style="color:var(--orange)">0</div><div class="stat-l">🔥 streak</div></div>
-    <div class="stat"><div class="stat-v" id="st-total" style="color:var(--blue)">0</div><div class="stat-l">📓 dias</div></div>
-    <div class="stat"><div class="stat-v" id="st-gym" style="color:var(--green)">0</div><div class="stat-l">🏋️ treinos</div></div>
+    <div class="stat-box"><div class="stat-v" id="st-streak" style="color:var(--orange)">0</div><div class="stat-l">🔥 streak</div></div>
+    <div class="stat-box"><div class="stat-v" id="st-total" style="color:var(--blue)">0</div><div class="stat-l">📓 dias</div></div>
+    <div class="stat-box"><div class="stat-v" id="st-gym" style="color:var(--green)">0</div><div class="stat-l">🏋️ treinos</div></div>
   </div>
-  <div class="sec-lbl">Últimos 7 dias</div>
-  <div class="bar-wrap"><div class="bars" id="bar-chart"></div></div>
-  <div class="sec-lbl" style="margin-top:22px">Matérias estudadas</div>
+  <div class="slbl">Últimos 7 dias</div>
+  <div class="bars-wrap"><div class="bars" id="bar-chart"></div></div>
+  <div class="slbl">Matérias estudadas</div>
   <div id="subj-list"></div>
 </div>
 
-<!-- PLANO -->
+<!-- ══ PLANO ════════════════════════ -->
 
 <div class="screen" id="s-plano">
   <button class="back" onclick="go('s-home')">voltar</button>
   <div class="pg-title">Plano</div>
   <div class="pg-sub">Rotina · semana · prioridades · regras</div>
-  <div class="sec-lbl">Semana de Estudos</div>
-  <div class="week">
-    <div class="wday"><div class="wday-name">SEG</div><div class="wday-div"></div><div class="wday-sub" style="color:var(--orange)">Cirurgia 2</div></div>
-    <div class="wday"><div class="wday-name">TER</div><div class="wday-div"></div><div class="wday-sub" style="color:var(--purple)">Estágio</div></div>
-    <div class="wday"><div class="wday-name">QUA</div><div class="wday-div"></div><div class="wday-sub" style="color:var(--blue)">Reab. Prot. 3</div></div>
-    <div class="wday"><div class="wday-name">QUI</div><div class="wday-div"></div><div class="wday-sub" style="color:var(--green)">Emergências</div></div>
-    <div class="wday"><div class="wday-name">SEX</div><div class="wday-div"></div><div class="wday-sub" style="color:var(--red)">Implanto</div></div>
-    <div class="wday"><div class="wday-name">SÁB</div><div class="wday-div"></div><div class="wday-sub" style="color:var(--dim)">Odonto Ped.</div></div>
-    <div class="wday"><div class="wday-name">DOM</div><div class="wday-div"></div><div class="wday-sub" style="color:var(--green)">Família 💚</div></div>
+  <div class="slbl">Semana de Estudos</div>
+  <div class="week-grid">
+    <div class="wday"><div class="wday-n">SEG</div><div class="wday-s" style="color:var(--orange)">Cirurgia 2</div></div>
+    <div class="wday"><div class="wday-n">TER</div><div class="wday-s" style="color:var(--purple)">Estágio</div></div>
+    <div class="wday"><div class="wday-n">QUA</div><div class="wday-s" style="color:var(--blue)">Reab. Prot.</div></div>
+    <div class="wday"><div class="wday-n">QUI</div><div class="wday-s" style="color:var(--green)">Emergências</div></div>
+    <div class="wday"><div class="wday-n">SEX</div><div class="wday-s" style="color:var(--red)">Implanto</div></div>
+    <div class="wday"><div class="wday-n">SÁB</div><div class="wday-s" style="color:var(--dim)">Ped.</div></div>
+    <div class="wday"><div class="wday-n">DOM</div><div class="wday-s" style="color:var(--green)">Família 💚</div></div>
   </div>
-  <div class="sec-lbl" style="margin-top:26px">Plano de Ensino</div>
+  <div class="slbl">Plano de Ensino</div>
   <div id="pe-list"></div>
-  <div style="margin-top:10px;padding:14px;background:var(--s1);border-radius:10px;">
-    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-bottom:8px;">+ Novo tópico</div>
-    <select id="pe-mat" style="width:100%;background:var(--s2);border:none;border-radius:8px;padding:10px;font-family:'Syne',sans-serif;font-size:12px;color:var(--white);outline:none;margin-bottom:6px;-webkit-appearance:none;">
+  <div style="padding:14px;background:var(--card);border-radius:12px;margin-top:8px;">
+    <div class="fl" style="margin-top:0">+ Novo tópico</div>
+    <select class="inp" id="pe-mat" style="margin-bottom:8px;">
       <option value="Cirurgia 2">Cirurgia 2</option>
       <option value="Estágio">Estágio</option>
       <option value="Reab. Protéticas 3">Reab. Protéticas 3</option>
@@ -587,35 +610,35 @@ position:relative;margin-bottom:16px;
       <option value="Implantodontia">Implantodontia</option>
       <option value="Odonto Pediatria">Odonto Pediatria</option>
     </select>
-    <div style="display:flex;gap:6px;">
-      <input id="pe-topico" class="add-in" placeholder="Ex: Técnica de sutura..." maxlength="100" onkeydown="if(event.key==='Enter')addPE()" style="flex:1;">
-      <button class="add-btn" onclick="addPE()">+ add</button>
+    <div class="inp-row">
+      <input class="inp" id="pe-topico" placeholder="Ex: Técnica de sutura..." maxlength="100" onkeydown="if(event.key==='Enter')addPE()">
+      <button class="btn-sm" onclick="addPE()">+ add</button>
     </div>
   </div>
-  <div class="sec-lbl" style="margin-top:26px">Prioridade de Estudo</div>
-  <div class="plist">
-    <div class="pitem"><div class="pnum">01</div><div><div class="pname" style="color:var(--red)">Implantodontia</div><div class="pdesc">Conteúdo novo — base importante</div></div></div>
-    <div class="pitem"><div class="pnum">02</div><div><div class="pname" style="color:var(--purple)">Estágio</div><div class="pdesc">Prática clínica supervisionada</div></div></div>
-    <div class="pitem"><div class="pnum">03</div><div><div class="pname" style="color:var(--blue)">Reab. Protéticas 3</div><div class="pdesc">Sequência do semestre anterior</div></div></div>
-    <div class="pitem"><div class="pnum">04</div><div><div class="pname" style="color:var(--orange)">Cirurgia 2</div><div class="pdesc">Acompanhar o semestre</div></div></div>
-    <div class="pitem"><div class="pnum">05</div><div><div class="pname" style="color:var(--green)">Emergências Hosp.</div><div class="pdesc">Acompanhar o semestre</div></div></div>
-    <div class="pitem"><div class="pnum">06</div><div><div class="pname" style="color:var(--dim)">Odonto Pediatria</div><div class="pdesc">Acompanhar o semestre</div></div></div>
+  <div class="slbl">Prioridade de Estudo</div>
+  <div class="pri-list">
+    <div class="pri-item"><div class="pri-n">01</div><div><div class="pri-name" style="color:var(--red)">Implantodontia</div><div class="pri-desc">Conteúdo novo — base importante</div></div></div>
+    <div class="pri-item"><div class="pri-n">02</div><div><div class="pri-name" style="color:var(--purple)">Estágio</div><div class="pri-desc">Prática clínica supervisionada</div></div></div>
+    <div class="pri-item"><div class="pri-n">03</div><div><div class="pri-name" style="color:var(--blue)">Reab. Protéticas 3</div><div class="pri-desc">Sequência do semestre anterior</div></div></div>
+    <div class="pri-item"><div class="pri-n">04</div><div><div class="pri-name" style="color:var(--orange)">Cirurgia 2</div><div class="pri-desc">Acompanhar o semestre</div></div></div>
+    <div class="pri-item"><div class="pri-n">05</div><div><div class="pri-name" style="color:var(--green)">Emergências Hosp.</div><div class="pri-desc">Acompanhar o semestre</div></div></div>
+    <div class="pri-item"><div class="pri-n">06</div><div><div class="pri-name" style="color:var(--dim)">Odonto Pediatria</div><div class="pri-desc">Acompanhar o semestre</div></div></div>
   </div>
-  <div class="sec-lbl" style="margin-top:26px">Rotina Diária</div>
+  <div class="slbl">Rotina Diária</div>
   <div class="timeline">
-    <div class="ti" data-accent="orange"><div class="ti-time">06h30</div><div class="ti-spine"><div class="ti-dot key"></div><div class="ti-line"></div></div><div class="ti-body"><div class="ti-label">Acordar</div><div class="ti-note">Alarme único — roupa separada</div></div></div>
-    <div class="ti"><div class="ti-time">08h00</div><div class="ti-spine"><div class="ti-dot"></div><div class="ti-line"></div></div><div class="ti-body"><div class="ti-label dim">Trabalho</div><div class="ti-note">Pausas → Anki</div></div></div>
-    <div class="ti" data-accent="blue"><div class="ti-time">13h00</div><div class="ti-spine"><div class="ti-dot key"></div><div class="ti-line"></div></div><div class="ti-body"><div class="ti-label">Almoço — Janela de Ouro ★</div><div class="ti-note">3× estudo · 2× academia</div></div></div>
-    <div class="ti" data-accent="green"><div class="ti-time">18h00</div><div class="ti-spine"><div class="ti-dot key"></div><div class="ti-line"></div></div><div class="ti-body"><div class="ti-label">Família + Filho</div><div class="ti-note">Presença total</div></div></div>
-    <div class="ti" data-accent="purple"><div class="ti-time">19h10</div><div class="ti-spine"><div class="ti-dot key"></div><div class="ti-line"></div></div><div class="ti-body"><div class="ti-label">Aula</div><div class="ti-note">Odontologia noturno</div></div></div>
-    <div class="ti"><div class="ti-time">22h50</div><div class="ti-spine"><div class="ti-dot"></div></div><div class="ti-body"><div class="ti-label dim">Ritual noturno</div><div class="ti-note">Roupa · mochila · alarme</div></div></div>
+    <div class="ti" data-a="orange"><div class="ti-t">06h30</div><div class="ti-sp"><div class="ti-dot key"></div><div class="ti-ln"></div></div><div class="ti-body"><div class="ti-label">Acordar</div><div class="ti-note">Alarme único — roupa separada</div></div></div>
+    <div class="ti"><div class="ti-t">08h00</div><div class="ti-sp"><div class="ti-dot"></div><div class="ti-ln"></div></div><div class="ti-body"><div class="ti-label dim">Trabalho</div><div class="ti-note">Pausas → Anki</div></div></div>
+    <div class="ti" data-a="blue"><div class="ti-t">13h00</div><div class="ti-sp"><div class="ti-dot key"></div><div class="ti-ln"></div></div><div class="ti-body"><div class="ti-label">Almoço — Janela de Ouro ★</div><div class="ti-note">3× estudo · 2× academia</div></div></div>
+    <div class="ti" data-a="green"><div class="ti-t">18h00</div><div class="ti-sp"><div class="ti-dot key"></div><div class="ti-ln"></div></div><div class="ti-body"><div class="ti-label">Família + Filho</div><div class="ti-note">Presença total</div></div></div>
+    <div class="ti" data-a="purple"><div class="ti-t">19h10</div><div class="ti-sp"><div class="ti-dot key"></div><div class="ti-ln"></div></div><div class="ti-body"><div class="ti-label">Aula</div><div class="ti-note">Odontologia noturno</div></div></div>
+    <div class="ti"><div class="ti-t">22h50</div><div class="ti-sp"><div class="ti-dot"></div></div><div class="ti-body"><div class="ti-label dim">Ritual noturno</div><div class="ti-note">Roupa · mochila · alarme</div></div></div>
   </div>
-  <div class="sec-lbl" style="margin-top:26px">Estratégia do Almoço</div>
+  <div class="slbl">Estratégia do Almoço</div>
   <div class="lunch-grid">
-    <div class="lcard"><div class="lcard-title" style="color:var(--blue)"><div class="lcard-dot" style="background:var(--blue)"></div>Estudo · 3×</div><div class="lsteps"><div class="lstep"><span class="lstep-t">13h00</span><span class="lstep-d">Almoço rápido</span></div><div class="lstep"><span class="lstep-t">13h15</span><span class="lstep-d">Estudo 25 min</span></div><div class="lstep"><span class="lstep-t">13h40</span><span class="lstep-d">Pausa 5 min</span></div><div class="lstep"><span class="lstep-t">13h45</span><span class="lstep-d">Anki 30 min</span></div></div></div>
-    <div class="lcard"><div class="lcard-title" style="color:var(--green)"><div class="lcard-dot" style="background:var(--green)"></div>Academia · 2×</div><div class="lsteps"><div class="lstep"><span class="lstep-t">13h00</span><span class="lstep-d">Academia 45 min</span></div><div class="lstep"><span class="lstep-t">13h45</span><span class="lstep-d">Banho + almoço</span></div><div class="lstep"><span class="lstep-t">14h15</span><span class="lstep-d">Anki 10 min</span></div></div></div>
+    <div class="lcard"><div class="lcard-h" style="color:var(--blue)"><div class="ldot" style="background:var(--blue)"></div>Estudo · 3×</div><div class="lstep"><span class="lt">13h00</span><span class="ld">Almoço rápido</span></div><div class="lstep"><span class="lt">13h15</span><span class="ld">Estudo 25 min</span></div><div class="lstep"><span class="lt">13h40</span><span class="ld">Pausa 5 min</span></div><div class="lstep"><span class="lt">13h45</span><span class="ld">Anki 30 min</span></div></div>
+    <div class="lcard"><div class="lcard-h" style="color:var(--green)"><div class="ldot" style="background:var(--green)"></div>Academia · 2×</div><div class="lstep"><span class="lt">13h00</span><span class="ld">Academia 45 min</span></div><div class="lstep"><span class="lt">13h45</span><span class="ld">Banho + almoço</span></div><div class="lstep"><span class="lt">14h15</span><span class="ld">Anki 10 min</span></div></div>
   </div>
-  <div class="sec-lbl" style="margin-top:26px">Regras de Ouro</div>
+  <div class="slbl">Regras de Ouro</div>
   <div class="rules">
     <div class="rule"><span class="rn">01</span><span class="rt"><strong>O almoço é seu único tempo de estudo. Proteja-o.</strong></span></div>
     <div class="rule"><span class="rn">02</span><span class="rt">Uma matéria por dia — <strong>foco gera profundidade.</strong></span></div>
@@ -623,22 +646,22 @@ position:relative;margin-bottom:16px;
     <div class="rule"><span class="rn">04</span><span class="rt">Família não atrapalha os estudos — <strong>ela é o motivo deles.</strong></span></div>
     <div class="rule"><span class="rn">05</span><span class="rt">Cansou? <strong>10 minutos de Anki ainda valem a pena.</strong></span></div>
   </div>
-  <div class="sec-lbl" style="margin-top:26px">Ritual da Noite Anterior</div>
+  <div class="slbl">Ritual da Noite Anterior</div>
   <div class="rituals">
-    <div class="rcard"><div class="rcard-icon">👔</div><div class="rcard-t">Roupa</div><div class="rcard-d">Separada na noite</div></div>
-    <div class="rcard"><div class="rcard-icon">🎒</div><div class="rcard-t">Mochila</div><div class="rcard-d">Na porta</div></div>
-    <div class="rcard"><div class="rcard-icon">⏰</div><div class="rcard-t">Alarme</div><div class="rcard-d">06h30 sem snooze</div></div>
-    <div class="rcard"><div class="rcard-icon">📖</div><div class="rcard-t">Revisão</div><div class="rcard-d">30s próximo tópico</div></div>
-    <div class="rcard"><div class="rcard-icon">💬</div><div class="rcard-t">Alinha</div><div class="rcard-d">Horário com a esposa</div></div>
-    <div class="rcard"><div class="rcard-icon">😴</div><div class="rcard-t">Desliga</div><div class="rcard-d">Mente descansada</div></div>
+    <div class="rcard"><div class="rcard-i">👔</div><div class="rcard-t">Roupa</div><div class="rcard-d">Separada na noite</div></div>
+    <div class="rcard"><div class="rcard-i">🎒</div><div class="rcard-t">Mochila</div><div class="rcard-d">Na porta</div></div>
+    <div class="rcard"><div class="rcard-i">⏰</div><div class="rcard-t">Alarme</div><div class="rcard-d">06h30 sem snooze</div></div>
+    <div class="rcard"><div class="rcard-i">📖</div><div class="rcard-t">Revisão</div><div class="rcard-d">30s próximo tópico</div></div>
+    <div class="rcard"><div class="rcard-i">💬</div><div class="rcard-t">Alinha</div><div class="rcard-d">Horário com a esposa</div></div>
+    <div class="rcard"><div class="rcard-i">😴</div><div class="rcard-t">Desliga</div><div class="rcard-d">Mente descansada</div></div>
   </div>
-  <div class="footer-row">
+  <div class="footer">
     <span class="footer-t">🦷 Odontologia · 5° Período · 2026</span>
     <span class="footer-t">Pai · Profissional · Estudante</span>
   </div>
 </div>
 
-<!-- MATERIAIS -->
+<!-- ══ MATERIAIS ════════════════════ -->
 
 <div class="screen" id="s-materiais">
   <button class="back" onclick="go('s-home')">voltar</button>
@@ -646,71 +669,62 @@ position:relative;margin-bottom:16px;
   <div class="pg-sub">Lista de compras do semestre</div>
   <div class="mat-summary">
     <div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-bottom:3px;">Total da lista</div>
-      <div id="mat-total" style="font-size:22px;font-weight:700;color:var(--green);">R$ 0,00</div>
+      <div class="mat-total-l">Total da lista</div>
+      <div class="mat-total-v" id="mat-total">R$ 0,00</div>
     </div>
-    <div style="text-align:right;">
-      <div id="mat-bought-val" style="font-size:18px;font-weight:700;color:var(--blue);">0/0</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);">comprados</div>
+    <div style="text-align:right">
+      <div class="mat-count-v" id="mat-bought-val">0/0</div>
+      <div class="mat-count-l">comprados</div>
     </div>
   </div>
   <div id="mat-list"></div>
-  <div class="sec-lbl" style="margin-top:16px">Adicionar item</div>
-  <div style="display:flex;flex-direction:column;gap:6px;">
-    <input id="mat-nome" class="add-in" placeholder="Nome do material..." maxlength="80" onkeydown="if(event.key==='Enter')addMat()">
-    <div style="display:flex;gap:6px;">
-      <input id="mat-cat" class="add-in" placeholder="Categoria (livro, EPI...)" maxlength="40" style="flex:1;">
-      <input id="mat-preco" class="add-in" type="number" placeholder="R$" style="width:80px;flex-shrink:0;" min="0" step="0.01">
-    </div>
-    <button class="add-btn" style="width:100%;padding:11px;" onclick="addMat()">+ adicionar material</button>
+  <div class="slbl">Adicionar item</div>
+  <input class="inp" id="mat-nome" placeholder="Nome do material..." maxlength="80" onkeydown="if(event.key==='Enter')addMat()">
+  <div class="inp-row" style="margin-top:8px">
+    <input class="inp" id="mat-cat" placeholder="Categoria (livro, EPI...)" maxlength="40">
+    <input class="inp sm" id="mat-preco" type="number" placeholder="R$" min="0" step="0.01">
   </div>
-  <div class="sec-lbl" style="margin-top:20px">Importar lista</div>
-  <textarea id="mat-import" class="fi" rows="4" placeholder="Cole sua lista, um item por linha. Ex:&#10;Luva de procedimento - R$ 25,00&#10;Máscara N95&#10;Espelho clínico - R$ 15,00"></textarea>
-  <button class="add-btn" style="width:100%;padding:11px;margin-top:6px;" onclick="importMat()">importar lista</button>
+  <div style="margin-top:8px"><button class="btn primary" onclick="addMat()">+ adicionar material</button></div>
+  <div class="slbl">Importar lista</div>
+  <textarea class="inp" id="mat-import" rows="4" placeholder="Cole sua lista, um item por linha. Ex:&#10;Luva de procedimento - R$ 25,00&#10;Máscara N95&#10;Espelho clínico - R$ 15,00"></textarea>
+  <div style="margin-top:8px"><button class="btn" onclick="importMat()">importar lista</button></div>
 </div>
 
-<!-- ANKI -->
+<!-- ══ ANKI ══════════════════════════ -->
 
 <div class="screen" id="s-anki">
   <button class="back" onclick="go('s-home')">voltar</button>
   <div class="pg-title">Anki</div>
   <div class="pg-sub">Flashcards · estudar · revisar</div>
-
-  <!-- modo estudo / modo criar -->
-
-  <div style="display:flex;gap:6px;margin-bottom:20px;">
-    <button id="tab-estudar" onclick="ankiTab('estudar')" style="flex:1;padding:10px;background:var(--blue);border:none;border-radius:9px;color:#fff;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;cursor:pointer;">Estudar</button>
-    <button id="tab-criar" onclick="ankiTab('criar')" style="flex:1;padding:10px;background:var(--s2);border:none;border-radius:9px;color:var(--dim);font-family:'Syne',sans-serif;font-size:12px;font-weight:600;cursor:pointer;">Criar cards</button>
-    <button id="tab-todos" onclick="ankiTab('todos')" style="flex:1;padding:10px;background:var(--s2);border:none;border-radius:9px;color:var(--dim);font-family:'Syne',sans-serif;font-size:12px;font-weight:600;cursor:pointer;">Ver todos</button>
+  <div class="anki-tabs">
+    <button class="atab on" id="tab-estudar" onclick="ankiTab('estudar')">Estudar</button>
+    <button class="atab" id="tab-criar" onclick="ankiTab('criar')">Criar</button>
+    <button class="atab" id="tab-todos" onclick="ankiTab('todos')">Ver todos</button>
   </div>
-
-  <!-- ESTUDAR -->
-
+  <!-- estudar -->
   <div id="anki-estudar">
     <div class="anki-stats">
-      <div class="anki-stat"><div class="anki-stat-v" id="ak-total" style="color:var(--blue)">0</div><div class="anki-stat-l">total</div></div>
-      <div class="anki-stat"><div class="anki-stat-v" id="ak-certos" style="color:var(--green)">0</div><div class="anki-stat-l">certos</div></div>
-      <div class="anki-stat"><div class="anki-stat-v" id="ak-erros" style="color:var(--red)">0</div><div class="anki-stat-l">erros</div></div>
+      <div class="ak-stat"><div class="ak-stat-v" id="ak-total" style="color:var(--blue)">0</div><div class="ak-stat-l">total</div></div>
+      <div class="ak-stat"><div class="ak-stat-v" id="ak-certos" style="color:var(--green)">0</div><div class="ak-stat-l">certos</div></div>
+      <div class="ak-stat"><div class="ak-stat-v" id="ak-erros" style="color:var(--red)">0</div><div class="ak-stat-l">erros</div></div>
     </div>
     <div id="anki-card-wrap">
-      <div class="anki-empty">Nenhum card ainda.<br>Crie cards na aba "Criar cards"!</div>
+      <div class="ak-empty">Nenhum card ainda.<br>Crie na aba "Criar"!</div>
     </div>
-    <div id="anki-flip-btn" style="display:none;">
-      <button class="anki-btn flip" onclick="ankiFlip()">Virar card 👁</button>
+    <div id="anki-flip-btn" style="display:none">
+      <button class="btn" onclick="ankiFlip()">👁 Virar card</button>
     </div>
-    <div id="anki-action-btns" style="display:none;">
-      <div class="anki-actions">
-        <button class="anki-btn wrong" onclick="ankiResp(false)">✗ Errei</button>
-        <button class="anki-btn right" onclick="ankiResp(true)">✓ Acertei</button>
+    <div id="anki-action-btns" style="display:none">
+      <div class="btn-row">
+        <button class="btn danger" onclick="ankiResp(false)">✗ Errei</button>
+        <button class="btn success" onclick="ankiResp(true)">✓ Acertei</button>
       </div>
     </div>
-    <button class="add-btn" style="width:100%;padding:11px;margin-top:4px;" onclick="ankiReset()">↺ Reiniciar sessão</button>
+    <div style="margin-top:10px"><button class="btn" onclick="ankiReset()">↺ Reiniciar sessão</button></div>
   </div>
-
-  <!-- CRIAR -->
-
-  <div id="anki-criar" style="display:none;">
-    <select id="ak-mat" style="width:100%;background:var(--s2);border:none;border-radius:9px;padding:11px;font-family:'Syne',sans-serif;font-size:12px;color:var(--white);outline:none;margin-bottom:8px;-webkit-appearance:none;">
+  <!-- criar -->
+  <div id="anki-criar" style="display:none">
+    <select class="inp" id="ak-mat" style="margin-bottom:10px">
       <option value="Cirurgia 2">Cirurgia 2</option>
       <option value="Estágio">Estágio</option>
       <option value="Reab. Protéticas 3">Reab. Protéticas 3</option>
@@ -719,15 +733,13 @@ position:relative;margin-bottom:16px;
       <option value="Odonto Pediatria">Odonto Pediatria</option>
     </select>
     <div class="fl">Frente (pergunta)</div>
-    <textarea id="ak-frente" class="fi" rows="3" placeholder="Ex: O que é rizólise?"></textarea>
-    <div class="fl" style="margin-top:10px;">Verso (resposta)</div>
-    <textarea id="ak-verso" class="fi" rows="3" placeholder="Ex: Processo de reabsorção da raiz dos dentes decíduos..."></textarea>
-    <button class="add-btn" style="width:100%;padding:12px;margin-top:12px;" onclick="addAnki()">+ criar flashcard</button>
+    <textarea class="inp" id="ak-frente" rows="3" placeholder="Ex: O que é rizólise?"></textarea>
+    <div class="fl">Verso (resposta)</div>
+    <textarea class="inp" id="ak-verso" rows="3" placeholder="Ex: Reabsorção da raiz dos dentes decíduos..."></textarea>
+    <div style="margin-top:12px"><button class="btn primary" onclick="addAnki()">+ criar flashcard</button></div>
   </div>
-
-  <!-- TODOS OS CARDS -->
-
-  <div id="anki-todos" style="display:none;">
+  <!-- todos -->
+  <div id="anki-todos" style="display:none">
     <div id="ak-todos-list"></div>
   </div>
 </div>
@@ -741,7 +753,6 @@ const STORE={};
 function ld(k,def){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):def;}catch{return STORE[k]!==undefined?STORE[k]:def;}}
 function sd(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch{STORE[k]=v;}}
 
-// NAVIGATION
 function go(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -755,17 +766,15 @@ function go(id){
   if(id==='s-anki'){renderAnkiEstudar();}
 }
 
-// HOME
 function initHome(){
   const d=new Date();
   document.getElementById('today-lbl').textContent=DAYS[d.getDay()].toUpperCase()+', '+d.getDate()+' DE '+MESES[d.getMonth()].toUpperCase()+' · '+d.getFullYear();
   document.getElementById('ts-date').textContent=DAYS[d.getDay()]+' · '+d.getDate()+'/'+(d.getMonth()+1).toString().padStart(2,'0');
 }
 function updateDateSub(){
-  document.getElementById('cl-date-sub').textContent=DAYS[TODAY.getDay()]+', '+TODAY.getDate()+' de '+MESES[TODAY.getMonth()];
+  document.getElementById('cl-sub').textContent=DAYS[TODAY.getDay()]+', '+TODAY.getDate()+' de '+MESES[TODAY.getMonth()];
 }
 
-// CHECKLIST
 const msgs=[
   ['Hoje ainda não começou','Complete as tarefas do dia'],
   ['Começando bem!','Continue assim...'],
@@ -781,14 +790,15 @@ function updateProgress(){
   const done=[...all].filter(e=>e.classList.contains('done')).length;
   const total=all.length;
   const pct=total?Math.round(done/total*100):0;
-  document.getElementById('ring').style.strokeDashoffset=142-(142*pct/100);
+  const circ=151;
+  document.getElementById('ring').style.strokeDashoffset=circ-(circ*pct/100);
   document.getElementById('pct').textContent=pct+'%';
-  document.getElementById('prog-bar').style.width=pct+'%';
+  document.getElementById('prog-fill').style.width=pct+'%';
   document.getElementById('cnt-done').textContent=done;
   document.getElementById('cnt-left').textContent=total-done;
   const idx=Math.min(done,msgs.length-1);
-  document.getElementById('prog-title').textContent=msgs[idx][0];
-  document.getElementById('prog-sub').textContent=msgs[idx][1];
+  document.getElementById('prog-ttl').textContent=msgs[idx][0];
+  document.getElementById('prog-s').textContent=msgs[idx][1];
   document.getElementById('ts-pct').textContent=pct+'%';
   document.getElementById('ring').style.stroke=pct===100?'#d4a843':pct>=70?'var(--green)':'var(--blue)';
 }
@@ -798,10 +808,10 @@ function burst(el){
   const colors=['#4a90d9','#3d9e6e','#7c5cbf','#c97d3a'];
   const w=document.createElement('div');w.className='burst';document.body.appendChild(w);
   for(let i=0;i<8;i++){
-    const d=document.createElement('div');d.className='burst-dot';
-    const a=(i/8)*Math.PI*2,dist=20+Math.random()*16;
-    d.style.cssText=`left:${cx}px;top:${cy}px;background:${colors[i%4]};--tx:${Math.cos(a)*dist}px;--ty:${Math.sin(a)*dist}px;`;
-    w.appendChild(d);
+    const dot=document.createElement('div');dot.className='bdot';
+    const a=(i/8)*Math.PI*2,dist=22+Math.random()*14;
+    dot.style.cssText=`left:${cx}px;top:${cy}px;background:${colors[i%4]};--tx:${Math.cos(a)*dist}px;--ty:${Math.sin(a)*dist}px;`;
+    w.appendChild(dot);
   }
   setTimeout(()=>w.remove(),600);
 }
@@ -818,17 +828,15 @@ function addItem(){
   if(!g){
     const lbl=document.createElement('div');lbl.className='grp-lbl';lbl.textContent='— Personalizado';
     const sc=document.getElementById('s-checklist');
-    const ar=sc.querySelector('.add-row');
+    const ar=sc.querySelector('.inp-row');
     g=document.createElement('div');g.id='custom-g';
     sc.insertBefore(lbl,ar);sc.insertBefore(g,ar);
   }
-  const item=document.createElement('div');
-  item.className='ci';item.onclick=function(){check(this);};
-  item.innerHTML=`<div class="cb"></div><span class="ci-text">${val}</span><span class="ci-tag" onclick="this.parentElement.remove();updateProgress();" style="cursor:pointer;color:var(--red)">✕</span>`;
+  const item=document.createElement('div');item.className='ci';item.onclick=function(){check(this);};
+  item.innerHTML=`<div class="ci-bar"></div><div class="ci-cb"></div><span class="ci-txt">${val}</span><span class="ci-tag" onclick="this.parentElement.remove();updateProgress();" style="cursor:pointer;color:var(--red)">✕</span>`;
   g.appendChild(item);inp.value='';updateProgress();
 }
 
-// CALENDAR
 let calY,calM;
 function initCal(){calY=TODAY.getFullYear();calM=TODAY.getMonth();}
 function chMes(d){calM+=d;if(calM>11){calM=0;calY++;}if(calM<0){calM=11;calY--;}renderCal();}
@@ -839,54 +847,45 @@ function renderCal(){
   const first=new Date(calY,calM,1);
   const last=new Date(calY,calM+1,0);
   let html='';
-  for(let i=0;i<first.getDay();i++)html+='<div class="cal-day empty"></div>';
+  for(let i=0;i<first.getDay();i++)html+='<div class="cal-day empty">·</div>';
   for(let d=1;d<=last.getDate();d++){
-    const date=new Date(calY,calM,d);
-    const key=dk(date);
+    const date=new Date(calY,calM,d);const key=dk(date);
     const isToday=key===dk(TODAY);
     const hasE=!!entries[key];
     const hasU=urgents.some(u=>u.date===key&&!u.done);
-    let cls='cal-day';
-    if(isToday)cls+=' today';
-    if(hasE)cls+=' has-entry';
-    else if(hasU)cls+=' has-urgent';
+    let cls='cal-day'+(isToday?' today':'')+(hasE?' has-e':hasU?' has-u':'');
     html+=`<div class="${cls}" onclick="openFromCal('${key}')">${d}</div>`;
   }
   document.getElementById('cal-days').innerHTML=html;
 }
 function openFromCal(key){jDate=new Date(key+'T00:00:00');go('s-diario');}
 
-// URGENT
 function renderUrg(){
   const tasks=ld('urgent_tasks',[]);
   const list=document.getElementById('urg-list');
   if(!tasks.length){list.innerHTML='<div style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--dim);padding:8px 0">Nenhuma tarefa urgente</div>';return;}
   tasks.sort((a,b)=>a.date.localeCompare(b.date));
-  list.innerHTML=tasks.map((t,i)=>`
-    <div class="urg-item ${t.done?'done-u':''}" onclick="togUrg(${i})">
-      <span class="u-dt">${t.date?t.date.slice(8)+'/'+t.date.slice(5,7):'—'}</span>
-      <span class="u-text">${t.text}</span>
-      <span class="u-del" onclick="delUrg(event,${i})">✕</span>
-    </div>`).join('');
+  list.innerHTML=tasks.map((t,i)=>`<div class="urg-item ${t.done?'done':''}" onclick="togUrg(${i})">
+    <span class="u-dt">${t.date?t.date.slice(8)+'/'+t.date.slice(5,7):'—'}</span>
+    <span class="u-txt">${t.text}</span>
+    <span class="u-del" onclick="delUrg(event,${i})">✕</span>
+  </div>`).join('');
 }
 function addUrg(){
-  const inp=document.getElementById('urg-in');
-  const dt=document.getElementById('urg-dt');
+  const inp=document.getElementById('urg-in'),dt=document.getElementById('urg-dt');
   const text=inp.value.trim();if(!text)return;
   const tasks=ld('urgent_tasks',[]);
   tasks.push({text,date:dt.value||dk(TODAY),done:false});
   sd('urgent_tasks',tasks);inp.value='';renderUrg();renderCal();
 }
-function togUrg(i){const tasks=ld('urgent_tasks',[]);tasks[i].done=!tasks[i].done;sd('urgent_tasks',tasks);renderUrg();renderCal();}
-function delUrg(e,i){e.stopPropagation();const tasks=ld('urgent_tasks',[]);tasks.splice(i,1);sd('urgent_tasks',tasks);renderUrg();renderCal();}
+function togUrg(i){const t=ld('urgent_tasks',[]);t[i].done=!t[i].done;sd('urgent_tasks',t);renderUrg();renderCal();}
+function delUrg(e,i){e.stopPropagation();const t=ld('urgent_tasks',[]);t.splice(i,1);sd('urgent_tasks',t);renderUrg();renderCal();}
 
-// JOURNAL
 let jDate=new Date(TODAY);
 let gymOn=false,studyOn=false;
 function jDay(d){if(d===0){jDate=new Date(TODAY);}else{jDate=new Date(jDate);jDate.setDate(jDate.getDate()+d);}renderJDay();}
 function renderJDay(){
-  const key=dk(jDate);
-  const isToday=key===dk(TODAY);
+  const key=dk(jDate);const isToday=key===dk(TODAY);
   document.getElementById('jd-title').textContent=DAYS[jDate.getDay()]+', '+jDate.getDate()+' de '+MESES[jDate.getMonth()];
   document.getElementById('jd-sub').textContent=isToday?'Hoje · '+key:key;
   const e=(ld('journal_entries',{}))[key]||{};
@@ -899,7 +898,7 @@ function renderJDay(){
   document.getElementById('tog-study').className='tog'+(studyOn?' on':'');
   const btn=document.getElementById('save-btn');
   btn.textContent=e.saved?'Atualizar dia':'Salvar dia';
-  btn.className='save-btn'+(e.saved?' ok':'');
+  btn.className='btn'+(e.saved?' success':' primary');
 }
 function togGym(){gymOn=!gymOn;document.getElementById('tog-gym').className='tog'+(gymOn?' on':'');}
 function togStudy(){studyOn=!studyOn;document.getElementById('tog-study').className='tog'+(studyOn?' on':'');}
@@ -909,7 +908,7 @@ function saveDay(){
   entries[key]={mat:document.getElementById('j-mat').value.trim(),livro:document.getElementById('j-livro').value.trim(),aula:document.getElementById('j-aula').value.trim(),nota:document.getElementById('j-nota').value.trim(),gym:gymOn,study:studyOn,saved:true,ts:Date.now()};
   sd('journal_entries',entries);
   const btn=document.getElementById('save-btn');
-  btn.textContent='✓ Salvo!';btn.className='save-btn ok';
+  btn.textContent='✓ Salvo!';btn.className='btn success';
   setTimeout(()=>{btn.textContent='Atualizar dia';},1500);
   renderEntries();
 }
@@ -919,8 +918,7 @@ function renderEntries(){
   const list=document.getElementById('entries-list');
   if(!keys.length){list.innerHTML='<div style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--dim);padding:8px 0">Nenhum dia salvo ainda</div>';return;}
   list.innerHTML=keys.map(k=>{
-    const e=entries[k];
-    const d=new Date(k+'T00:00:00');
+    const e=entries[k];const d=new Date(k+'T00:00:00');
     const badges=[e.gym?'<span class="ec-badge gym">academia</span>':'',e.study?'<span class="ec-badge study">estudou</span>':''].filter(Boolean).join('');
     return`<div class="ec" onclick="openFromCal('${k}')">
       <div class="ec-head"><div class="ec-date">${DAYS[d.getDay()]}, ${d.getDate()}/${String(d.getMonth()+1).padStart(2,'0')}</div><div class="ec-badges">${badges}</div></div>
@@ -931,7 +929,6 @@ function renderEntries(){
   }).join('');
 }
 
-// PROGRESS
 function renderProgress(){
   const entries=ld('journal_entries',{});
   const keys=Object.keys(entries);
@@ -944,9 +941,8 @@ function renderProgress(){
   for(let i=6;i>=0;i--){
     const date=new Date(TODAY);date.setDate(date.getDate()-i);
     const k=dk(date);const e=entries[k];
-    const h=e?Math.max(e.study?100:40,10):5;
-    const isT=i===0;
-    bars+=`<div class="bar-col"><div class="bar ${e?(isT?'today-b':'has'):''}" style="height:${h}%"></div><div class="bar-dl">${DAYS[date.getDay()].slice(0,3)}</div></div>`;
+    const h=e?Math.max(e.study?100:40,10):5;const isT=i===0;
+    bars+=`<div class="bar-col"><div class="bar ${e?(isT?'today':'active'):''}" style="height:${h}%"></div><div class="bar-lbl">${DAYS[date.getDay()].slice(0,1)}</div></div>`;
   }
   document.getElementById('bar-chart').innerHTML=bars;
   const subjs={};
@@ -954,57 +950,47 @@ function renderProgress(){
   const sorted=Object.entries(subjs).sort((a,b)=>b[1]-a[1]);
   const sl=document.getElementById('subj-list');
   if(!sorted.length){sl.innerHTML='<div style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--dim)">Nenhuma matéria registrada ainda</div>';return;}
-  sl.innerHTML=sorted.map(([s,n])=>`<div class="subj-item"><div class="subj-n">${n}×</div><div class="subj-t">${s}</div></div>`).join('');
+  sl.innerHTML=sorted.map(([s,n])=>`<div class="subj-row"><div class="subj-n">${n}×</div><div class="subj-t">${s}</div></div>`).join('');
 }
 
-// PLANO DE ENSINO
 const PE_CORES={'Cirurgia 2':'var(--orange)','Estágio':'var(--purple)','Reab. Protéticas 3':'var(--blue)','Emergências Hospitalares':'var(--green)','Implantodontia':'var(--red)','Odonto Pediatria':'var(--dim)'};
 const PE_DEFAULT={
   'Odonto Pediatria':[
     {texto:'Aula 01 - Apresentacao da disciplina e introducao a Psicologia em Odontopediatria',ok:false},
     {texto:'Aula 02 - Psicologia e manejo de comportamento - condicionamento do paciente infantil',ok:false},
-    {texto:'Aula 02 - Tecnicas de adaptacao do comportamento e caracteristicas psicologicas',ok:false},
     {texto:'Aula 03 - Odontogenese e anomalias dentarias - embriologia e formacao da face',ok:false},
-    {texto:'Aula 03 - Rizogenese, rizoHse e processo de erupcao dentaria',ok:false},
     {texto:'Aula 04 - Atendimento gestante e bebe - posicoes e cavidade bucal do bebe',ok:false},
     {texto:'Aula 05 - Anatomia dos dentes deciduos - diferencas com permanentes',ok:false},
     {texto:'Aula 06 - Denticao decidua - relacoes intra/inter-arcadas e arcos de Baume',ok:false},
-    {texto:'Aula 07 - Dentadura mista - irrompimento dos dentes permanentes',ok:false},
-    {texto:'Aula 07 - Radiologia em Odontopediatria - tecnicas e protocolos por idade',ok:false},
+    {texto:'Aula 07 - Dentadura mista e Radiologia em Odontopediatria',ok:false},
     {texto:'Aula 08 - 1a Prova Bimestral (25/04/2026)',ok:false},
-    {texto:'Aula 09 - Cariologia parte I - diagnostico das lesoes em diferentes estagios',ok:false},
-    {texto:'Aula 09 - Etiologia da doenca carie',ok:false},
-    {texto:'Aula 11 - Cariologia parte II - fatores de risco, prevencao e controle',ok:false},
-    {texto:'Aula 12 - Cariologia parte II - minima intervencao e ART',ok:false},
-    {texto:'Aula 13 - Controle de biofilme - tecnicas de escovacao, dentifrico e fluorterapia',ok:false},
-    {texto:'Aula 14 - Defeitos de desenvolvimento do esmalte - diagnostico diferencial com carie',ok:false},
-    {texto:'Aula 15 - Habitos bucais deleteros - succao, interposicao lingual, bruxismo',ok:false},
+    {texto:'Aula 09 - Cariologia parte I - diagnostico das lesoes',ok:false},
+    {texto:'Aula 11 - Cariologia parte II - fatores de risco e prevencao',ok:false},
+    {texto:'Aula 12 - Minima intervencao e ART',ok:false},
+    {texto:'Aula 13 - Controle de biofilme e fluorterapia',ok:false},
+    {texto:'Aula 14 - Defeitos de desenvolvimento do esmalte',ok:false},
+    {texto:'Aula 15 - Habitos bucais deleteros',ok:false},
     {texto:'Aula 16/17 - Odontologia de Minima Intervencao - Hands on',ok:false},
     {texto:'Aula 18 - 2a Prova Bimestral (27/06/2026)',ok:false},
     {texto:'Aula 20 - Prova Final (11/07/2026)',ok:false},
   ],
-  'Emergencias Hospitalares':[
+  'Emergências Hospitalares':[
     {texto:'Ambiente hospitalar - prontuario, equipe multiprofissional, biosseguranca',ok:false},
     {texto:'Anamnese e Avaliacao Clinica Pre-Operatoria e sinais vitais',ok:false},
-    {texto:'Infeccao Hospitalar e Normas Universais de Biosseguranca',ok:false},
     {texto:'Nocoes de Cardiologia e cardiopatias mais prevalentes',ok:false},
-    {texto:'Nocoes de Endocrinologia e endocrinopatias mais prevalentes',ok:false},
-    {texto:'Nocoes de Nefrologia - doenca renal aguda e cronica',ok:false},
-    {texto:'Nocoes de Hematologia - coagulopatias e doencas oncohematologicas',ok:false},
-    {texto:'Nocoes de Hepatologia e hepatopatias mais prevalentes',ok:false},
-    {texto:'Nocoes de Oncologia',ok:false},
+    {texto:'Nocoes de Endocrinologia e endocrinopatias',ok:false},
+    {texto:'Nocoes de Nefrologia e doenca renal',ok:false},
+    {texto:'Nocoes de Hematologia - coagulopatias',ok:false},
+    {texto:'Nocoes de Hepatologia',ok:false},
     {texto:'Manifestacoes bucais de doencas sistemicas',ok:false},
-    {texto:'Paciente de terapia intensiva - abordagem odontologica',ok:false},
-    {texto:'Situacoes de Emergencia - classificacao e recomendacoes basicas',ok:false},
     {texto:'Suporte Basico de Vida',ok:false},
-    {texto:'Protocolo de Sedacao Minima',ok:false},
     {texto:'Alteracao ou Perda da Consciencia e Dificuldade Respiratoria',ok:false},
     {texto:'Cardiopatias',ok:false},
     {texto:'Crise Hipertensiva Arterial',ok:false},
     {texto:'Convulsoes',ok:false},
     {texto:'Equipamentos de Emergencia',ok:false},
   ],
-  'Reab. Proteticas 3':[
+  'Reab. Protéticas 3':[
     {texto:'Plano de Tratamento Integrado',ok:false},
     {texto:'Emprego dos Articuladores',ok:false},
     {texto:'Selecao de Cor',ok:false},
@@ -1012,7 +998,7 @@ const PE_DEFAULT={
     {texto:'Estudo de casos e tratamentos proteticos integrados',ok:false},
   ],
   'Cirurgia 2':[],
-  'Estagio':[],
+  'Estágio':[],
   'Implantodontia':[],
 };
 function initPE(){
@@ -1032,21 +1018,23 @@ function renderPE(){
       <div class="pe-head" onclick="togglePE('${key}')">
         <div style="display:flex;align-items:center;gap:10px;flex:1;">
           <div style="width:3px;height:32px;border-radius:2px;background:${cor};flex-shrink:0;"></div>
-          <div><div style="font-size:13px;font-weight:600;color:${cor};">${nome}</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);">${done}/${items.length} · ${pct}%</div></div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:${cor};">${nome}</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);">${done}/${items.length} tópicos · ${pct}%</div>
+          </div>
         </div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);" id="pe-arr-${key}">▸</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim);" id="pe-arr-${key}">▸</div>
       </div>
-      <div class="pe-bar-bg"><div class="pe-bar" style="width:${pct}%;background:${cor};opacity:.6;"></div></div>
+      <div class="pe-track"><div class="pe-fill" style="width:${pct}%;background:${cor};opacity:.5;"></div></div>
       <div class="pe-items" id="pe-items-${key}">
         ${items.length?items.map((t,i)=>`
           <div class="pe-item">
-            <div class="pe-cb" onclick="togPE('${nome}',${i})" style="background:${t.ok?cor:'transparent'};${t.ok?'border-color:'+cor+';':''}">
+            <div class="pe-cb ${t.ok?'on':''}" id="pe-cb-${key}-${i}" onclick="togPE('${nome}',${i})" style="${t.ok?'background:'+cor+';border-color:'+cor+';':''}">
               ${t.ok?'<div style="position:absolute;top:2px;left:3px;width:5px;height:3px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg);"></div>':''}
             </div>
-            <span style="font-size:11.5px;flex:1;line-height:1.4;color:${t.ok?'var(--dim)':'var(--white)'};${t.ok?'text-decoration:line-through;':''}">${t.texto}</span>
-            <span onclick="delPE('${nome}',${i})" style="font-size:10px;color:var(--dim);cursor:pointer;padding:2px 6px;">✕</span>
-          </div>`).join(''):'<div style="font-family:JetBrains Mono,monospace;font-size:9px;color:var(--dim);padding:8px 0;">Nenhum topico ainda</div>'}
+            <span style="font-size:11.5px;flex:1;line-height:1.5;color:${t.ok?'var(--dim)':'var(--txt)'};${t.ok?'text-decoration:line-through;':''}">${t.texto}</span>
+            <span onclick="delPE('${nome}',${i})" style="font-size:11px;color:var(--dim);cursor:pointer;padding:2px 8px;flex-shrink:0;">✕</span>
+          </div>`).join(''):'<div style="font-family:JetBrains Mono,monospace;font-size:9px;color:var(--dim);padding:8px 0;">Nenhum tópico ainda</div>'}
       </div>
     </div>`;
   });
@@ -1057,7 +1045,7 @@ function togglePE(key){
   const arr=document.getElementById('pe-arr-'+key);
   const open=el.style.display==='block';
   el.style.display=open?'none':'block';
-  arr.textContent=open?'▸':'▾';
+  if(arr)arr.textContent=open?'▸':'▾';
 }
 function addPE(){
   const mat=document.getElementById('pe-mat').value;
@@ -1071,7 +1059,7 @@ function addPE(){
   renderPE();
   const key=mat.replace(/[\s\.]/g,'_');
   const el=document.getElementById('pe-items-'+key);
-  if(el){el.style.display='block';document.getElementById('pe-arr-'+key).textContent='▾';}
+  if(el){el.style.display='block';const arr=document.getElementById('pe-arr-'+key);if(arr)arr.textContent='▾';}
 }
 function togPE(mat,i){
   const topicos=ld('plano_ensino',PE_DEFAULT);
@@ -1090,7 +1078,6 @@ function delPE(mat,i){
   if(el)el.style.display='block';
 }
 
-// MATERIAIS
 function renderMat(){
   const items=ld('materiais',[]);
   const list=document.getElementById('mat-list');
@@ -1106,15 +1093,13 @@ function renderMat(){
   document.getElementById('mat-bought-val').textContent=bought+'/'+items.length;
   list.innerHTML=items.map((it,i)=>`
     <div class="mat-item ${it.bought?'bought':''}">
-      <div onclick="togMat(${i})" style="width:13px;height:13px;border:1px solid var(--border2);border-radius:3px;flex-shrink:0;position:relative;cursor:pointer;background:${it.bought?'var(--green)':'transparent'};">
-        ${it.bought?'<div style="position:absolute;top:2px;left:3px;width:5px;height:3px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg);"></div>':''}
-      </div>
+      <div class="mat-cb ${it.bought?'on':''}" onclick="togMat(${i})"></div>
       <div style="flex:1;min-width:0;">
-        <div style="font-size:12px;color:var(--white);${it.bought?'text-decoration:line-through;color:var(--dim);':''}">${it.nome}</div>
-        ${it.cat?`<div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);">${it.cat}</div>`:''}
+        <div style="font-size:13px;color:var(--txt);${it.bought?'text-decoration:line-through;color:var(--dim);':''}">${it.nome}</div>
+        ${it.cat?`<div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--dim);margin-top:1px;">${it.cat}</div>`:''}
       </div>
-      ${it.preco?`<div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--orange);white-space:nowrap;flex-shrink:0;">R$ ${parseFloat(it.preco).toFixed(2).replace('.',',')}</div>`:''}
-      <div onclick="delMat(${i})" style="font-size:10px;color:var(--dim);cursor:pointer;padding:2px 6px;flex-shrink:0;">✕</div>
+      ${it.preco?`<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--orange);white-space:nowrap;flex-shrink:0;">R$ ${parseFloat(it.preco).toFixed(2).replace('.',',')}</div>`:''}
+      <div onclick="delMat(${i})" style="font-size:12px;color:var(--dim);cursor:pointer;padding:2px 8px;flex-shrink:0;">✕</div>
     </div>`).join('');
 }
 function addMat(){
@@ -1145,7 +1130,6 @@ function importMat(){
   renderMat();
 }
 
-// ANKI
 let ankiDeck=[],ankiIdx=0,ankiCertos=0,ankiErros=0,ankiFlipped=false;
 function ankiTab(tab){
   document.getElementById('anki-estudar').style.display=tab==='estudar'?'block':'none';
@@ -1153,8 +1137,7 @@ function ankiTab(tab){
   document.getElementById('anki-todos').style.display=tab==='todos'?'block':'none';
   ['estudar','criar','todos'].forEach(t=>{
     const btn=document.getElementById('tab-'+t);
-    btn.style.background=t===tab?'var(--blue)':'var(--s2)';
-    btn.style.color=t===tab?'#fff':'var(--dim)';
+    btn.className='atab'+(t===tab?' on':'');
   });
   if(tab==='todos')renderAnkiTodos();
 }
@@ -1164,33 +1147,30 @@ function renderAnkiEstudar(){
   document.getElementById('ak-certos').textContent=ankiCertos;
   document.getElementById('ak-erros').textContent=ankiErros;
   if(!cards.length){
-    document.getElementById('anki-card-wrap').innerHTML='<div class="anki-empty">Nenhum card ainda.<br>Crie cards na aba "Criar cards"!</div>';
+    document.getElementById('anki-card-wrap').innerHTML='<div class="ak-empty">Nenhum card ainda.<br>Crie na aba "Criar"!</div>';
     document.getElementById('anki-flip-btn').style.display='none';
     document.getElementById('anki-action-btns').style.display='none';
     return;
   }
-  ankiDeck=shuffleArr([...cards]);
-  ankiIdx=0;ankiFlipped=false;
-  showAnkiCard();
+  ankiDeck=shuffleArr([...cards]);ankiIdx=0;ankiFlipped=false;showAnkiCard();
 }
 function shuffleArr(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function showAnkiCard(){
   const cards=ld('anki_cards',[]);
   if(!cards.length||ankiIdx>=ankiDeck.length){
-    document.getElementById('anki-card-wrap').innerHTML=`<div class="anki-empty">Sessão completa! 🎉<br><span style="color:var(--green)">✓ ${ankiCertos}</span> certos · <span style="color:var(--red)">✗ ${ankiErros}</span> erros</div>`;
+    document.getElementById('anki-card-wrap').innerHTML=`<div class="ak-empty">Sessão completa! 🎉<br><span style="color:var(--green)">✓ ${ankiCertos}</span> certos · <span style="color:var(--red)">✗ ${ankiErros}</span> erros</div>`;
     document.getElementById('anki-flip-btn').style.display='none';
     document.getElementById('anki-action-btns').style.display='none';
     return;
   }
-  const card=ankiDeck[ankiIdx];
-  ankiFlipped=false;
+  const card=ankiDeck[ankiIdx];ankiFlipped=false;
   document.getElementById('anki-card-wrap').innerHTML=`
-    <div class="anki-card" onclick="ankiFlip()">
+    <div class="ak-card" onclick="ankiFlip()">
       <div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--blue);margin-bottom:12px;">${card.mat}</div>
-        <div class="anki-front">${card.frente}</div>
-        <div class="anki-back" id="anki-back-text" style="margin-top:16px;display:none;">${card.verso}</div>
-        <div class="anki-hint">toque para virar</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--blue);margin-bottom:12px;letter-spacing:.1em;">${card.mat}</div>
+        <div class="ak-front">${card.frente}</div>
+        <div class="ak-back" id="anki-back-text">${card.verso}</div>
+        <div class="ak-hint">toque para virar</div>
       </div>
     </div>`;
   document.getElementById('anki-flip-btn').style.display='block';
@@ -1199,7 +1179,7 @@ function showAnkiCard(){
 function ankiFlip(){
   ankiFlipped=!ankiFlipped;
   const back=document.getElementById('anki-back-text');
-  if(back){back.style.display=ankiFlipped?'block':'none';}
+  if(back)back.style.display=ankiFlipped?'block':'none';
   document.getElementById('anki-flip-btn').style.display=ankiFlipped?'none':'block';
   document.getElementById('anki-action-btns').style.display=ankiFlipped?'block':'none';
 }
@@ -1223,32 +1203,28 @@ function addAnki(){
   document.getElementById('ak-verso').value='';
   document.getElementById('ak-total').textContent=cards.length;
   const btn=document.getElementById('tab-criar');
-  btn.textContent='✓ Criado!';
-  setTimeout(()=>{btn.textContent='Criar cards';},1200);
+  const orig=btn.textContent;btn.textContent='✓ Criado!';
+  setTimeout(()=>{btn.textContent=orig;},1200);
 }
 function renderAnkiTodos(){
   const cards=ld('anki_cards',[]);
   const list=document.getElementById('ak-todos-list');
-  if(!cards.length){list.innerHTML='<div class="anki-empty">Nenhum card criado ainda.</div>';return;}
+  if(!cards.length){list.innerHTML='<div class="ak-empty">Nenhum card criado ainda.</div>';return;}
   const byMat={};
   cards.forEach((c,i)=>{if(!byMat[c.mat])byMat[c.mat]=[];byMat[c.mat].push({...c,idx:i});});
   list.innerHTML=Object.entries(byMat).map(([mat,cs])=>`
     <div style="margin-bottom:16px;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--blue);margin-bottom:8px;letter-spacing:.1em;">${mat} · ${cs.length} cards</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--blue);margin-bottom:8px;letter-spacing:.1em;text-transform:uppercase;">${mat} · ${cs.length} cards</div>
       ${cs.map(c=>`
-        <div style="background:var(--s1);border-radius:9px;padding:12px 14px;margin-bottom:4px;">
-          <div style="font-size:12px;font-weight:600;margin-bottom:4px;">${c.frente}</div>
-          <div style="font-size:11px;color:var(--dim);margin-bottom:8px;">${c.verso}</div>
+        <div style="background:var(--card);border-radius:10px;padding:13px 14px;margin-bottom:4px;">
+          <div style="font-size:13px;font-weight:600;color:var(--txt);margin-bottom:4px;">${c.frente}</div>
+          <div style="font-size:12px;color:var(--dim);margin-bottom:10px;">${c.verso}</div>
           <div onclick="delAnki(${c.idx})" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--red);cursor:pointer;">✕ remover</div>
         </div>`).join('')}
     </div>`).join('');
 }
-function delAnki(i){
-  const cards=ld('anki_cards',[]);cards.splice(i,1);
-  sd('anki_cards',cards);renderAnkiTodos();
-}
+function delAnki(i){const cards=ld('anki_cards',[]);cards.splice(i,1);sd('anki_cards',cards);renderAnkiTodos();}
 
-// INIT
 try{initHome();}catch(e){}
 try{initCal();}catch(e){}
 try{initPE();}catch(e){}
